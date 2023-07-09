@@ -18,10 +18,10 @@ function HeroSection() {
             />
 
             <h1>ALORS</h1>
-            <p>Summer 2023</p>
+            
             <div className="hero-btns">
                 <Button className="btns" buttonStyle='btn--outline'
-                buttonSize="btn--large">join Alors</Button>
+                buttonSize="btn--large">SUMMER 2023</Button>
             </div>
         </div>
     )
