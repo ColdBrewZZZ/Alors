@@ -1,54 +1,7 @@
-// import React, { useState } from 'react';
-// import { Routes, Route, Link } from 'react-router-dom';
-// import './Navbar.css';
-// import Home from './Home';
-// import About from './About';
-
-
-// function Navbar() {
-//     const {click, setClick} = useState(false);
-    
-
-//     const handleClick = () => setClick(!click);
-//     const closeMobileMenu = () => setClick(false);
-
-
-    
-
-//     return (
-//         <>
-//             <nav class="navbar">
-//                 <div class="container-fluid">
-//                     <Link to="/" className="navbar-logo">
-//                         ALORS
-//                     </Link>
-//                     <div class="menu-icon" onClick={handleClick}>
-//                         <i class="bi bi-list"></i>
-//                     </div>
-//                     <ul class={click ? 'nev-menu active' : 'nav-menu' }>
-//                         <li class="nav-item">
-//                             <Link to={'/'} className="nav-link" onClick={closeMobileMenu}>
-//                                 Home
-//                             </Link>
-//                         </li>
-//                         <li class="nav-item"> 
-//                             <Link to={'/About'} className="nav-link" onClick={closeMobileMenu}>
-//                                 About
-//                             </Link>
-//                         </li>
-//                     </ul>
-                   
-//                 </div>
-// </nav>
-//         </>
-//     )
-// }
-
-// export default Navbar
-
 import React, { useState, useEffect } from 'react';
 import { Button } from './Button';
 import { Link } from 'react-router-dom';
+
 import './Navbar.css';
 
 function Navbar() {
@@ -74,9 +27,38 @@ function Navbar() {
 
   return (
     <>
-      <nav className='navbar'>
-        <div className='navbar-container'>
-          <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
+      <div className="nav-container col-12">
+        <div className="logo">
+          <ul>
+            <li><h1>ALORS</h1></li>
+          </ul>
+        </div>
+        <div className="menu-icon" onClick={handleClick}>
+            <i className='bi bi-list' />
+        </div>
+        <nav className={click ? 'nav-menu active' : 'nav-menu'}>
+          <ul>
+            <li>Home</li>
+            <li>About</li>
+            <li>Contact</li>
+            <li>Account</li>
+            <li>Shopping Cart</li>
+            <li>Checkout</li>
+          </ul>
+        </nav>
+      </div>
+    </>
+  );
+}
+
+export default Navbar;
+
+
+
+
+{/* <nav class='navbar'>
+       
+          <Link to='/' class='navbar-logo' onClick={closeMobileMenu}>
             ALORS
           </Link>
           <div className='menu-icon' onClick={handleClick}>
@@ -118,10 +100,5 @@ function Navbar() {
             </li>
           </ul>
           
-        </div>
-      </nav>
-    </>
-  );
-}
-
-export default Navbar;
+      
+      </nav> */}
