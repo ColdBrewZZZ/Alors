@@ -33,10 +33,8 @@ function Footer() {
             <li><h1>ALORS</h1></li>
           </ul>
         </div>
-        <div className="menu-icon" onClick={handleClick}>
-            <i className='bi bi-list' />
-        </div>
-        <nav className={click ? 'nav-menu active' : 'nav-menu'}>
+        
+        <nav>
           <ul>
             <li>About</li>
             <li>Contact</li>
