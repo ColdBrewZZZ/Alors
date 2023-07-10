@@ -13,6 +13,8 @@
   padding: 0 20px; 
 }
 
+
+
 nav {
   float: right;
 }
@@ -39,9 +41,10 @@ ul li:hover {
 }
 
 
+
 @media screen and (max-width: 960px) {
   .menu-icon {
-    display: flex; /* Show the menu icon */
+    display: flex; 
     align-items: center;
     cursor: pointer;
   }
@@ -49,5 +52,7 @@ ul li:hover {
   .nav-menu {
     display: none;
   }
+
+  
 
 }
