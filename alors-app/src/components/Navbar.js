@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from './Button';
 import { Link } from 'react-router-dom';
+import { FaShoppingCart, FaUserCircle } from 'react-icons/fa';
 
 import './Navbar.css';
 
@@ -8,7 +9,10 @@ function Navbar() {
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
 
-  const handleClick = () => setClick(!click);
+  const handleClick = () => {
+    setClick(!click);
+    //closeMobileMenu();
+  };
   const closeMobileMenu = () => setClick(false);
 
   const showButton = () => {
@@ -33,17 +37,26 @@ function Navbar() {
             <li><h1>ALORS</h1></li>
           </ul>
         </div>
+        <div className="shopping-icon" >
+        <i class="fa-regular fa-cart-shopping"></i>
+        </div>
+        <div className="menu-icon" >
+            <FaUserCircle />
+        </div>
+        <div className="menu-icon" >
+            <FaShoppingCart />
+        </div>
         <div className="menu-icon" onClick={handleClick}>
             <i className='bi bi-list' />
         </div>
         <nav className={click ? 'nav-menu active' : 'nav-menu'}>
           <ul>
-            <li>Home</li>
-            <li>About</li>
-            <li>Contact</li>
-            <li>Account</li>
-            <li>Shopping Cart</li>
-            <li>Checkout</li>
+            <li className='nav-item'>Home</li>
+            <li className='nav-item'>About</li>
+            <li className='nav-item'>Contact</li>
+            <li className='nav-item'>Account</li>
+            <li className='nav-item'>Shopping Cart</li>
+            <li className='nav-item'>Checkout</li>
           </ul>
         </nav>
       </div>

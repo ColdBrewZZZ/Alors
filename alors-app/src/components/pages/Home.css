@@ -48,6 +48,11 @@ body {
     object-fit: cover;
     z-index: 0;
     cursor: pointer;
+    opacity: 1;
+  }
+
+  .explore-img img:hover {
+    border:solid ;
   }
   
   .explore-txt {
