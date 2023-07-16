@@ -1,7 +1,7 @@
 import React from 'react';
 import './Home.css';
 
-
+import Footer from '../Footer';
 import apparel from '../../img/exploreAp.JPG';
 import accessories from '../../img/exploreAc.JPG';
 import gifts from '../../img/exploreG.JPG';
@@ -44,7 +44,7 @@ function Home() {
           </div>
         </div>
       </div>
-     
+      <Footer/>
     </div>
   );
 }

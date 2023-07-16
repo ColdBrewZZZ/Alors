@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button } from './Button';
 import { Link } from 'react-router-dom';
 
-import './Navbar.css';
+import './Footer.css';
 
 function Footer() {
   const [click, setClick] = useState(false);
@@ -27,21 +27,19 @@ function Footer() {
 
   return (
     <>
-      <div className="nav-container col-12">
+      <div className="footer col-12">
         <div className="logo">
           <ul>
             <li><h1>ALORS</h1></li>
           </ul>
         </div>
-        <div className="menu-icon" onClick={handleClick}>
-            <i className='bi bi-list' />
-        </div>
-        <nav className={click ? 'nav-menu active' : 'nav-menu'}>
+        
+        <div className="footer-items">
           <ul>
             <li>About</li>
             <li>Contact</li>
           </ul>
-        </nav>
+        </div>
       </div>
     </>
   );
