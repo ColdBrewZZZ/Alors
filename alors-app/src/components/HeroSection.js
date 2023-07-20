@@ -6,6 +6,7 @@ import alorsVideo from './videos/6222023.mp4';
 import { Button } from './Button';
 
 function HeroSection() {
+
     return (
         <div className='hero-container'>
             <ReactPlayer
