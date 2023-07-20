@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Form, InputGroup, Button } from 'react-bootstrap';
 import { FaLock, FaEnvelope } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
+import './Login.css'
 //import { saveUserToLocalStorage, getUsersFromLocalStorage } from '../../localStorageManager';
 
 
@@ -40,7 +41,7 @@ function Login() {
 
   return (
     <>
-      <div className="text-center">
+      <div className="text-center mt-4">
         <h1>Log In</h1>
         <hr />
       </div>

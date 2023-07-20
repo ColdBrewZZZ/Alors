@@ -23,6 +23,8 @@ nav {
   cursor: pointer;
 }
 
+
+
 .nav-item {
   display: inline-block;
   padding: 10px;
@@ -31,7 +33,12 @@ nav {
   margin-left: 10px;
 }
 
-.nav-item:hover {
+.nav-item .nav-links {
+  text-decoration: none; 
+  color:#F9E9CA;
+}
+
+.nav-item .nav-links:hover {
   color: #EB9F71;
 }
 
