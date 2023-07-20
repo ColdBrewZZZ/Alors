@@ -51,12 +51,41 @@ function Navbar() {
         </div>
         <nav className={click ? 'nav-menu active' : 'nav-menu'}>
           <ul>
-            <li className='nav-item'>Home</li>
-            <li className='nav-item'>About</li>
-            <li className='nav-item'>Contact</li>
-            <li className='nav-item'>Account</li>
-            <li className='nav-item'>Shopping Cart</li>
-            <li className='nav-item'>Checkout</li>
+            <li className='nav-item'>
+              <Link to='/' className='nav-links' onClick={closeMobileMenu}>
+                Home
+              </Link>
+            </li>
+            <li className='nav-item'>
+              <Link
+                to='/About'
+                className='nav-links'
+                onClick={closeMobileMenu}
+              >
+                About
+              </Link>
+            </li>
+            <li className='nav-item'>
+              <Link
+                to='/Contact'
+                className='nav-links'
+                onClick={closeMobileMenu}
+              >
+                Contact
+              </Link>
+            </li>
+
+            <li className='nav-item'>
+              <Link
+                to='/Account'
+                className='nav-links'
+                onClick={closeMobileMenu}
+              >
+                Account
+              </Link>
+            </li>
+            {/* <li className='nav-item'>Shopping Cart</li>
+            <li className='nav-item'>Checkout</li> */}
           </ul>
         </nav>
       </div>
