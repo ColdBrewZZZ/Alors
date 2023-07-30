@@ -22,7 +22,7 @@ function About() {
     <div className="story-container">
       
     </div>
-    <Footer/>
+   
     </>
     
   );

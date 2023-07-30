@@ -106,7 +106,7 @@ function Contact() {
     
         </div>
 
-        <div className="my-3">
+        <div className="mt-3 mb-5">
           <Button>Send</Button>
         </div>
       </div>
