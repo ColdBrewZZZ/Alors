@@ -45,10 +45,10 @@ function Login() {
         <h1>Log In</h1>
         <hr />
       </div>
-      <div className="container">
+      <div className="container mb-5">
         {formFields.map((field, index) => (
           <Form.Group controlId={`form${field.name}`} key={index}>
-            <Form.Label>{field.label}</Form.Label>
+            <Form.Label className='mt-4'>{field.label}</Form.Label>
             <InputGroup>
               <InputGroup.Text>{field.icon}</InputGroup.Text>
               <Form.Control
@@ -63,13 +63,14 @@ function Login() {
           </Form.Group>
         ))}
 
-        <div className="my-3">
+        <div className="mt-4 mb-5">
            <Button onClick={handleLogin}>Log In</Button>
         </div>
-        <div>
+        <div className='pb-5'>
           <div className="mb-2">Don't have an account yet?</div>
           <Link to="/Registration">make a new account</Link>
         </div>
+       
       </div>
     </>
   );

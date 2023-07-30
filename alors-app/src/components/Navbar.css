@@ -21,6 +21,16 @@ nav {
   float: left;
   font-size: 3.2rem;
   cursor: pointer;
+  
+}
+
+.logo .logo-link{
+  text-decoration: none;
+  color:#F9E9CA;
+}
+
+.logo .logo-link:hover{
+  color:#EB9F71;
 }
 
 
@@ -67,7 +77,7 @@ nav {
     position: absolute;
     top: 100%;
     right: 0;
-    width: 3;
+    width: 30%;
     max-height: calc(100vh - 100px); 
     overflow-y: auto; 
     background-color: #27353F;
@@ -77,12 +87,12 @@ nav {
   .nav-item {
     display: block;
     text-align: center;
-    
-    width: 80%;
+    padding-left: 10%;
+    width: 0%;
     text-decoration: none;
     font-size: 1.5rem;
     background-color: transparent;
-    color: #F9E9CA;
+    color: #795309;
    
    
     transition: all 0.3s ease-out;

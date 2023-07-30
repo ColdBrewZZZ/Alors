@@ -34,7 +34,11 @@ function Navbar() {
       <div className="nav-container col-12">
         <div className="logo">
           <ul>
-            <li><h1>ALORS</h1></li>
+            <li> 
+              <Link to='/' className="logo-link" onClick={closeMobileMenu}>
+                <h1>ALORS</h1>
+              </Link>
+            </li>
           </ul>
         </div>
         <div className="shopping-icon" >
@@ -54,6 +58,15 @@ function Navbar() {
             <li className='nav-item'>
               <Link to='/' className='nav-links' onClick={closeMobileMenu}>
                 Home
+              </Link>
+            </li>
+            <li className='nav-item'>
+              <Link
+                to='/Shopping'
+                className='nav-links'
+                onClick={closeMobileMenu}
+              >
+                Discover
               </Link>
             </li>
             <li className='nav-item'>
