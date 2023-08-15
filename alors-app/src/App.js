@@ -4,8 +4,8 @@ import Home from './components/pages/Home';
 import About from './components/pages/About';
 import Account from './components/pages/Account/Account'
 import Contact from './components/pages/Contact'
-import Shopping from './components/pages/Shopping/Shopping';
-import New from './components/pages/Shopping/New'
+import Shopping from './components/pages/Shopping';
+//import New from './components/pages/Shopping/New'
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
@@ -30,8 +30,8 @@ function App() {
           />} /> 
           <Route path="/Shopping" element={<Shopping
           />} /> 
-          <Route path="/New" element={<New
-          />} /> 
+          {/* <Route path="/New" element={<New
+          />} />  */}
         </Routes>
 
         <Footer/>
