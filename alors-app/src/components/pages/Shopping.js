@@ -1,6 +1,7 @@
 import React from 'react';
 import './Shopping.css';
 import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import banner from '../../img/bannerAp.JPG';
 import image from '../../img/exploreAp.JPG';
 
@@ -47,6 +48,7 @@ function Shopping() {
       <div class="container mt-2">
             <div class="row">
                 <div class="col-sm">
+                <Link className="itemCardLink" to='/ProductPage'>
                     <div class="item-card">
                         <img
                                 src={image}
@@ -57,6 +59,7 @@ function Shopping() {
                             <p className="item-price">$900</p>
                             <Button>Add to Cart</Button>
                     </div>
+                </Link>
                 </div>
                 <div class="col-sm">
                     <div class="item-card">
@@ -71,7 +74,8 @@ function Shopping() {
                     </div>
                 </div>
                 <div class="col-sm">
-                    <div class="item-card">
+               
+                <div class="item-card">
                         <img
                                 src={image}
                                 alt='image'
@@ -81,6 +85,8 @@ function Shopping() {
                             <p className="item-price">$900</p>
                             <Button>Add to Cart</Button>
                     </div>
+           
+                    
                 </div>
                 
             </div>
@@ -127,7 +133,7 @@ function Shopping() {
 </div>
      
       <div className="more-Button mb-2 mx-2">
-        <Button >More</Button>
+        <Button class="btn btn-light">More</Button>
       </div>
       
    

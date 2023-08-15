@@ -1,5 +1,8 @@
 .shopping-navbar {
-    width: 100%;
+    width: 95%;
+    float: left;
+    padding-right: 2px;
+    display: relative;
 }
 
 .banner-container{
@@ -34,7 +37,14 @@
 }
 
 
-
+.itemCardLink {
+    text-decoration: none;
+    color:black;
+}
+.itemCardLink:hover {
+    text-decoration: none;
+    color:black;
+}
 
 .item-card {
     background-color: rgb(255, 255, 255);
@@ -48,5 +58,12 @@
 }
 
 .more-Button{
+    text-align: center;
+}
+
+.item-card:hover {
+    background-color: #B8C098;
+    margin-bottom: 20px;
+    border-radius: 20px;
     text-align: center;
 }

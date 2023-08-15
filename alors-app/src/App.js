@@ -5,6 +5,7 @@ import About from './components/pages/About';
 import Account from './components/pages/Account/Account'
 import Contact from './components/pages/Contact'
 import Shopping from './components/pages/Shopping';
+import ProductPage from './components/pages/ProductPage';
 //import New from './components/pages/Shopping/New'
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -30,8 +31,9 @@ function App() {
           />} /> 
           <Route path="/Shopping" element={<Shopping
           />} /> 
-          {/* <Route path="/New" element={<New
-          />} />  */}
+           <Route path="/ProductPage" element={<ProductPage
+          />} /> 
+        
         </Routes>
 
         <Footer/>
