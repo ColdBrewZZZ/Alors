@@ -97,6 +97,15 @@ function Navbar() {
                 Account
               </Link>
             </li>
+            <li className='nav-item'>
+              <Link
+                to='/Cart'
+                className='nav-links'
+                onClick={closeMobileMenu}
+              >
+                Cart
+              </Link>
+            </li>
             {/* <li className='nav-item'>Shopping Cart</li>
             <li className='nav-item'>Checkout</li> */}
           </ul>

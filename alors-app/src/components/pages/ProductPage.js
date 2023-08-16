@@ -31,7 +31,7 @@ function ProductPage() {
                                     <h3>Description of item</h3>
                                 </div>
                                 <div class="col-4">
-                                    <Button class="btn btn-light">Add to wish list</Button>
+                                    <Button className="btn btn-light">Add to wish list</Button>
                                 </div>
                                 
                             </div>
@@ -49,18 +49,8 @@ function ProductPage() {
                                 
                             </div>
                             
-                        {/* <div classname='row'>
-                            <div className="col-sm">
-                                <h3 className="item-price">$900</h3>
-                                <Button>Add to Cart</Button>
-                            </div>
-                            <div className="col-sm">
-                                <p className="left-in-stock">Only 34 left in stock</p>
-                            </div>
-                            
-                            
-                        </div> */}
-                </div>
+                       
+                         </div>
                
                 
             </div>
