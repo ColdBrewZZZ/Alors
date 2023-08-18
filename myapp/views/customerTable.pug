@@ -1,0 +1,16 @@
+doctype html
+html
+    head
+        title Customers
+    body
+        h1 Customers
+        table
+            tr
+                th Customer ID
+                th Company Name
+                th Country
+            each customer in customers
+                tr
+                    td= customer.CustomerID
+                    td= customer.CompanyName
+                    td= customer.Country

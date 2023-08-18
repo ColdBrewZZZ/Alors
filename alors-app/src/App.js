@@ -7,6 +7,7 @@ import Contact from './components/pages/Contact'
 import Shopping from './components/pages/Shopping';
 import ProductPage from './components/pages/ProductPage';
 import Cart from './components/pages/Cart';
+import Checkout from './components/pages/Checkout';
 //import New from './components/pages/Shopping/New'
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -35,6 +36,8 @@ function App() {
            <Route path="/ProductPage" element={<ProductPage
           />} /> 
            <Route path="/Cart" element={<Cart
+          />} /> 
+          <Route path="/Checkout" element={<Checkout
           />} /> 
         
         </Routes>

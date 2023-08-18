@@ -82,6 +82,9 @@ function Cart() {
             </div>
         </div>
     </div>
+    <div className='m-2'>
+        <Button>Back to Shopping</Button>
+    </div>
     
    
     </>

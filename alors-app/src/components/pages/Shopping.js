@@ -35,9 +35,8 @@ function Shopping() {
       <div className="dropdowns mt-2">
         <select defaultValue="filter">
           <option value="filter" disabled>Filter</option>
-          <option value="price-range">Price Range</option>
           <option value="color">Color</option>
-          <option value="category">Category</option>
+          <option value="category">Country of Origin</option>
         </select>
         <select defaultValue="sort">
           <option value="sort" disabled>Sort</option>
