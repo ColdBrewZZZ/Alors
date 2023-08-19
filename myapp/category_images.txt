@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "category_id": 1,
+        "photo_path": "https://i.pinimg.com/564x/b0/13/49/b01349dfae0dfc7065b6e89e682cad70.jpg",
+        "type": "main"
+    },
+    {
+        "id": 2,
+        "category_id": 2,
+        "photo_path": "https://i.pinimg.com/736x/0c/63/cc/0c63ccdadf42882d84d61477d7e31a8a.jpg",
+        "type": "main"
+    },
+    {
+        "id": 3,
+        "category_id": 3,
+        "photo_path": "https://i.pinimg.com/564x/b6/d5/10/b6d510f6684a7a35010754122ea9c9c5.jpg",
+        "type": "main"
+    },
+    {
+        "id": 4,
+        "category_id": 4,
+        "photo_path": "https://i.pinimg.com/564x/72/e3/b0/72e3b01e4b6c73cf36efa152c1bee02c.jpg",
+        "type": "main"
+    }
+]
