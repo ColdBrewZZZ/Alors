@@ -24,7 +24,7 @@
 
   .hero-container > h1 {
     color: #27353F;    ;
-    font-size: 100px;
+    font-size: 600%;
     margin-top: -100px;
     cursor: default; 
     margin-left: 2%;
@@ -35,18 +35,22 @@
   }
   
   .hero-btns {
-    width: 30%;
+    width: 20%;
   }
   .hero-btns .btn {
-    margin-top: 6px;
-    margin-bottom: 6px;
+    margin: 6px;
     width: 100%;
   }
   
  
   @media screen and (max-width: 960px) {
-    .hero-container > h1 {
-      font-size: 70px;
+    
+    .hero-btns {
+      width: 30%;
+    }
+    .hero-btns .btn {
+      
+      width: 100%;
     }
 
 
@@ -54,16 +58,17 @@
   
   @media screen and (max-width: 768px) {
     .hero-container > h1 {
-      font-size: 50px;
+      font-size: 80px;
     }
   
-    .hero-container > p {
-      font-size: 30px;
-    }
+  
   
     .btn-mobile {
       display: block;
       text-decoration: none;
+    }
+    .hero-btns {
+      width: 35%;
     }
   
     .btn {
