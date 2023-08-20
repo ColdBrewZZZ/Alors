@@ -1,8 +1,21 @@
 import React, { useState } from 'react';
+import { Form, InputGroup, Button } from 'react-bootstrap';
+
 
 function Registration() {
+    const formFields = [
+        { label: 'Email', name: 'email', type:'email'},
+        { label: 'Password', name: 'password', type:'password'},
+        { label: 'Re-enter Password', name: 're-password', type:'password'},
+        { label: 'Title', name: 'title', type:'text'},
+        { label: 'First Name', name: 'first_name', type:'text'},
+        { label: 'Last Name', name: 'last_name', type:'text' },
+        { label: 'Phone number', name: 'phone', type:'text' },
+        { label: 'Birthday', name: 'birthday', type:'date'}
+      ];
+
   // State variables to store form data
-  const [formData, setFormData] = useState({
+  const [info, setInfo] = useState({
     email: '',
     password: '',
     title: '',
@@ -15,8 +28,8 @@ function Registration() {
   // Event handler for form input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
+    setInfo({
+      ...info,
       [name]: value,
     });
   };
@@ -32,7 +45,7 @@ function Registration() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(info),
       });
 
       if (response.ok) {
@@ -46,79 +59,37 @@ function Registration() {
   };
 
   return (
-    <div className="container">
-      <h1>Create an Alors account</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Email:</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Password:</label>
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Title:</label>
-          <input
-            type="text"
-            name="title"
-            value={formData.title}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="form-group">
-          <label>First Name:</label>
-          <input
-            type="text"
-            name="first_name"
-            value={formData.first_name}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Last Name:</label>
-          <input
-            type="text"
-            name="last_name"
-            value={formData.last_name}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Phone:</label>
-          <input
-            type="text"
-            name="phone"
-            value={formData.phone}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="form-group">
-          <label>Birthday:</label>
-          <input
-            type="date"
-            name="birthday"
-            value={formData.birthday}
-            onChange={handleInputChange}
-          />
-        </div>
-        <button type="submit">Register</button>
-      </form>
+    <>
+    <div className="text-center mt-4">
+        <h1>CREATE AN ALORS ACCOUNT</h1>
+        <hr />
     </div>
+    <div className="container d-flex justify-content-center align-items-center" >
+      <div className="text-center col-md-6 bg-white rounded pt-5 p-4 my-4 border border-black" >
+        <div>  
+            {formFields.map((field, index) => (
+                    <div className="mb-3" key={index}>
+                    <Form.Group controlId={`form${field.name}`}>
+                        <InputGroup>
+                        <InputGroup.Text>{field.label}:</InputGroup.Text>
+                        <Form.Control
+                            type={field.type}
+                            name={field.name}
+                            value={info[field.name]}
+                            onChange={handleInputChange}
+                        />
+                        </InputGroup>
+                    </Form.Group>
+                    </div>
+                ))}
+        </div>
+        <Button onClick={handleSubmit}>Register</Button>
+      </div>
+    </div>
+ 
+      
+      
+  </>
   );
 }
 
