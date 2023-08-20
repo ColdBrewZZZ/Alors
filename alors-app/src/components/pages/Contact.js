@@ -37,42 +37,24 @@ function Contact() {
        
       <div className="text-center col-md-6" >
         <div >
-          {/* First Field */}
-          <div className="mb-3">
-            <Form.Group controlId={`form${formFields[0].name}`}>
-             
-              <InputGroup>
-                <InputGroup.Text>{formFields[0].icon}</InputGroup.Text>
-                <Form.Control
-                  type={formFields[0].name === 'text'}
-                  name={formFields[0].name}
-                  placeholder={formFields[0].placeholder}
-                  value={info[formFields[0].name]}
-                  onChange={handleInputChange}
-                />
-              </InputGroup>
-            </Form.Group>
-          </div>
+          {/* First and second Field */}
 
-          {/* Second Field */}
-          <div className="mb-3">
-            <Form.Group controlId={`form${formFields[1].name}`}>
-             
-              <InputGroup>
-                <InputGroup.Text>{formFields[1].icon}</InputGroup.Text>
-                <Form.Control
-                  type={formFields[1].name === 'text'}
-                  name={formFields[1].name}
-                  placeholder={formFields[1].placeholder}
-                  value={info[formFields[1].name]}
-                  onChange={handleInputChange}
-                />
-              </InputGroup>
-            </Form.Group>
-          </div>
-        </div>
-
-        <div>
+          {formFields.slice(0, 2).map((field, index) => (
+            <div className="mb-3" key={index}>
+              <Form.Group controlId={`form${field.name}`}>
+                <InputGroup>
+                  <InputGroup.Text>{field.icon}</InputGroup.Text>
+                  <Form.Control
+                    type={field.name === 'text'}
+                    name={field.name}
+                    placeholder={field.placeholder}
+                    value={info[field.name]}
+                    onChange={handleInputChange}
+                  />
+                </InputGroup>
+              </Form.Group>
+            </div>
+          ))}
           {/* Third Field */}
    
         <Form.Group controlId={`form${formFields[2].name}`} >
