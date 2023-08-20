@@ -11,6 +11,7 @@ var ordersRouter = require('./routes/orders');
 var itemsRouter = require('./routes/items');
 var category_imagesRouter = require('./routes/category_images');
 var user_cartRouter = require('./routes/user_cart');
+var insert_userRouter = require('./routes/insert_user');
 var hero_section_imagesRouter = require('./routes/hero_section_images')
 
 var app = express();
@@ -33,6 +34,8 @@ app.use('/user_cart', user_cartRouter);
 app.use('/category_images', category_imagesRouter);
 app.use('/items', itemsRouter);
 app.use('/hero_section_images', hero_section_imagesRouter);
+app.use('/insert_user', insert_userRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

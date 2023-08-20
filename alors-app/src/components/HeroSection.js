@@ -1,8 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import '../App.css';
 import './HeroSection.css';
-import ReactPlayer from 'react-player';
-import alorsVideo from './videos/6222023.mp4';
 import { Button } from './Button';
 
 function HeroSection() {
@@ -25,10 +23,10 @@ function HeroSection() {
             <h1>ALORS</h1>
             
             <div className="hero-btns">
-                <Button className="btns" buttonStyle='btn--outline'
+                <Button to="Account" className="btns" buttonStyle='btn--outline'
                 buttonSize="btn--large">LOG IN</Button>
-                 <Button className="btns" buttonStyle='btn--outline'
-                buttonSize="btn--large">JOIN US</Button>
+                 <Button to="Registration" className="btns" buttonStyle='btn--outline'
+                buttonSize="btn--large" >JOIN US</Button>
             </div>
         </div>
     )
