@@ -1,26 +1,24 @@
 var express = require('express');
 var router = express.Router();
-var fs = require('fs');
-var path = require('path');
+var mysql = require('mysql2'); 
+var connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'Sqldoawk1!',
+  database: 'alors'
+});
 
 router.get('/', function(req, res, next) {
-  var filePath = path.join(__dirname, '../users_data.txt');
-
-  fs.readFile(filePath, 'utf8', (err, data) => {
+  connection.query('SELECT * FROM users', (err, results) => {
     if (err) {
       console.error(err);
       res.status(500).send('Internal Server Error');
       return;
     }
 
-    var itemsData = JSON.parse(data);
-    res.json(itemsData);
+    res.json(results);
   });
 });
 
-
-router.get('/user', function(req, res, next) {
-  res.send('this is just one user');
-});
 
 module.exports = router;

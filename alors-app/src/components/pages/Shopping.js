@@ -56,7 +56,7 @@ function Shopping() {
                                 />
                             <h2 className="item-title">Item Title</h2>
                             <p className="item-price">$900</p>
-                            <Button>Add to Cart</Button>
+                            <Button className="mb-3">Add to Cart</Button>
                     </div>
                 </Link>
                 </div>
@@ -69,7 +69,7 @@ function Shopping() {
                                 />
                             <h2 className="item-title">Item Title</h2>
                             <p className="item-price">$900</p>
-                            <Button>Add to Cart</Button>
+                            <Button className="mb-2">Add to Cart</Button>
                     </div>
                 </div>
                 <div class="col-sm">

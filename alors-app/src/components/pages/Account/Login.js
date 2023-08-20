@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, InputGroup, Button } from 'react-bootstrap';
 import { FaLock, FaEnvelope } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import './Login.css'
-//import { saveUserToLocalStorage, getUsersFromLocalStorage } from '../../localStorageManager';
+
 
 
 
@@ -15,11 +15,10 @@ const formFields = [
 const message = "We couldn't log you in. Please check your email and password and try again.";
 
 function Login() {
-  const [info, setInfo] = useState({ username: '', password: '' });
+  const [info, setInfo] = useState({ email: '', password: '' });
   const [invalidLogin, setInvalidLogin] = useState(false);
   const navigate = useNavigate();
-  //const users = getUsersFromLocalStorage() || [];
-  const users = [];
+  const [users, setUsers] = useState([]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -27,17 +26,30 @@ function Login() {
   };
 
   const handleLogin = () => {
-    const { username, password } = info;
-    const userExists = users.find((user) => user.username === username && user.password === password);
+    const { email, password } = info;
+    const userExists = users.find((user) => user.email === email && user.password === password);
 
     if (userExists) {
-      //saveUserToLocalStorage(userExists);
-      //navigate('/Profile');
-      console.log("hello")
+      
+      navigate('/');
+      
     } else {
       setInvalidLogin(true);
+      console.log(users);
     }
   };
+
+  
+  useEffect(() => {
+    fetch('http://localhost:3000/users')
+      .then(response => response.json())
+      .then(data => {
+        setUsers(data);
+      })
+      .catch(error => {
+        console.error('Error fetching image URL:', error);
+      });
+  }, []);
 
   return (
     <>
