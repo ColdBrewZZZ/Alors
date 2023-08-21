@@ -28,8 +28,8 @@ function App() {
           />} />
           <Route path="/About" element={<About 
           />} /> 
-          <Route path="/Account" element={<Account 
-          />} /> 
+         <Route path="/Account/*" element={<Account 
+          />} />
           <Route path="/Contact" element={<Contact 
           />} /> 
           <Route path="/Shopping" element={<Shopping

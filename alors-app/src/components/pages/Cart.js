@@ -26,7 +26,7 @@ function Cart() {
                                     <p>Name of item</p>
                                     <p>desciption of item</p>
                                     <p>$900</p>
-                                    <Button className="btn btn-light">remove</Button>
+                                    <Button className="btn btn-light border border-dark">remove</Button>
                                 </div>
                                 <div class="col-4">
                                     <div>
@@ -34,8 +34,8 @@ function Cart() {
                                     </div>
                                     <div className="container">
                                         <div className="row">
-                                                    <Button className="btn btn-light col">+</Button>
-                                                    <Button className="btn btn-dark col">-</Button>  
+                                                    <Button className="qty-btn btn-light border border-dark col">+</Button>
+                                                    <Button className="qty-btn btn-dark col">-</Button>  
                                         </div>
                                     </div>      
                                 </div>        
@@ -52,7 +52,7 @@ function Cart() {
                                     <p>Name of item</p>
                                     <p>desciption of item</p>
                                     <p>$900</p>
-                                    <Button className="btn btn-light">remove</Button>
+                                    <Button className="btn btn-light border border-dark">remove</Button>
                                 </div>
                                 <div class="col-4">
                                     <div>
@@ -60,8 +60,8 @@ function Cart() {
                                     </div>
                                     <div className="container">
                                         <div className="row">
-                                                    <Button className="btn btn-light col">+</Button>
-                                                    <Button className="btn btn-dark col">-</Button>  
+                                                    <Button className="qty-btn btn-light border border-dark col">+</Button>
+                                                    <Button className="qty-btn btn-dark  col">-</Button>  
                                         </div>
                                     </div>      
                                 </div>        
