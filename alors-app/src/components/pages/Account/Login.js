@@ -31,7 +31,7 @@ function Login() {
 
     if (userExists) {
       
-      navigate('/');
+      navigate('/Account/OrderHistory');
       
     } else {
       setInvalidLogin(true);

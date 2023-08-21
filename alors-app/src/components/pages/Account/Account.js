@@ -1,27 +1,19 @@
-import React, { useState } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import React from 'react';
+import { Routes, Route, Outlet } from 'react-router-dom';
 import Login from './Login';
+import OrderHistory from './OrderHistory';
 
-
-
-
-function App() {
+function Account() {
   return (
     <>
-        
-  
-        
-        <Routes>
-          <Route path="/" element={<Login 
-          />} />
-          
-        </Routes>
-          
-            
+      <Routes>
+        <Route path="/" element={<Outlet />}>
+          <Route index element={<Login />} />
+          <Route path="OrderHistory" element={<OrderHistory />} />
+        </Route>
+      </Routes>
     </>
-        
-    
   );
 }
 
-export default App;
+export default Account;

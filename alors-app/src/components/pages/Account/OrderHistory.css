@@ -1,0 +1,14 @@
+.item-image {
+    width: 5cm;
+}
+
+
+@media screen and (max-width: 960px) {
+    
+    .item-image {
+        width: 100%;
+    }
+
+
+  }
+  

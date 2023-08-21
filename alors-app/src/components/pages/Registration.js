@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Form, InputGroup, Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 
 function Registration() {
+  const navigate = useNavigate();
     const formFields = [
         { label: 'Email', name: 'email', type:'email'},
         { label: 'Password', name: 'password', type:'password'},
@@ -49,6 +51,7 @@ function Registration() {
       });
 
       if (response.ok) {
+        navigate('/Account/OrderHistory');
         console.log("hello")
       } else {
         console.log("no no")
@@ -83,7 +86,7 @@ function Registration() {
                     </div>
                 ))}
         </div>
-        <Button onClick={handleSubmit}>Register</Button>
+        <Button onClick={handleSubmit}>SUBMIT</Button>
       </div>
     </div>
  
