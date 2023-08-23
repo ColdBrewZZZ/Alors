@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import AuthContext from "../../../context/AuthProvider";
+import axios from '../../../api/axios';
 import { Form, InputGroup, Button } from 'react-bootstrap';
 import { FaLock, FaEnvelope } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
@@ -15,6 +17,7 @@ const formFields = [
 const message = "We couldn't log you in. Please check your email and password and try again.";
 
 function Login() {
+  const { setAuth } = useContext(AuthContext);
   const [info, setInfo] = useState({ email: '', password: '' });
   const [invalidLogin, setInvalidLogin] = useState(false);
   const navigate = useNavigate();
@@ -27,29 +30,35 @@ function Login() {
 
   const handleLogin = () => {
     const { email, password } = info;
-    const userExists = users.find((user) => user.email === email && user.password === password);
-
-    if (userExists) {
-      
-      navigate('/Account/OrderHistory');
-      
-    } else {
-      setInvalidLogin(true);
-      console.log(users);
-    }
-  };
-
+    axios.post('http://localhost:3000/users/login', { email, password })
+      .then(response => {  
+        if (response.data.success) {   
+          setAuth(true);
+          
+          axios.get('http://localhost:3000/users/set-cookie',  {
+            withCredentials: true,})
+            .then(cookieResponse => {
+              
+              console.log('Cookie set:', cookieResponse.data);
+            })
+            .catch(cookieError => {
+              console.error('Error setting cookie:', cookieError);
+            });
   
-  useEffect(() => {
-    fetch('http://localhost:3000/users')
-      .then(response => response.json())
-      .then(data => {
-        setUsers(data);
+          navigate('/Account/OrderHistory');
+        } else {
+          setInvalidLogin(true);
+          
+        }
       })
       .catch(error => {
-        console.error('Error fetching image URL:', error);
+        console.error('Error logging in:', error);
       });
-  }, []);
+  };
+  
+ 
+  
+  
 
   return (
     <>
