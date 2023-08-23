@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import React from 'react';
-
+import { AuthProvider } from './context/AuthProvider';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom'
 import App from './App';
@@ -9,7 +9,9 @@ import App from './App';
 
 ReactDOM.render((
   <BrowserRouter>
-    <App />
+    <AuthProvider>
+      <App />
+    </AuthProvider>
   </BrowserRouter>
 ), document.getElementById('root'))
 
