@@ -26,6 +26,19 @@ router.get('/', function(req, res, next) {
   });
 });
 
+router.get('/user', function(req, res, next) {
+  connection.query('SELECT * FROM users WHERE id = 1', (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Internal Server Error');
+      return;
+    }
+
+    res.json(results);
+  });
+});
+
+
 router.post('/login', function (req, res, next) {
   const { email, password } = req.body;
  
@@ -43,8 +56,7 @@ router.post('/login', function (req, res, next) {
      
       if (password === user.password) {
         
-        
-
+         
         res.json({ success: true });
       } else {
      
@@ -59,15 +71,18 @@ router.post('/login', function (req, res, next) {
 
 // Endpoint to set a cookie
 router.get('/set-cookie', function(req, res, next) {
-  // Set a cookie named "myCookie"
-  res.cookie('myCookie', 'startswithC', {
-    domain: 'localhost'
-  });
-
+  const userData = { id: 1};
+    res.cookie('myCookie', JSON.stringify({ id: 1}), {
+      domain: 'localhost'
+    });
   // Send a response
-  res.send('Cookie set!');
-});
+    res.send('Cookie set!');
+}); 
+  
 
 
+// router.get('/private-area', auth, (req, res) => {
+
+// });
 
 module.exports = router;

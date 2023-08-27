@@ -1,3 +1,31 @@
 body{
     color:#27353f;
 }
+
+.login-container{
+    margin-bottom: 2cm;
+    margin-left: 30%;
+    margin-right: 30%;
+    background-color: white;
+    padding-top: 5%;
+    padding-left: 5%;
+    padding-right: 5%;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+}
+
+@media screen and (max-width: 960px) {
+    .login-container{
+        margin-left: 20%;
+        margin-right: 20%;
+    }
+}
+
+@media screen and (max-width: 768px) { 
+    .login-container{
+        margin-left: 4%;
+        margin-right: 4%;
+    }
+}

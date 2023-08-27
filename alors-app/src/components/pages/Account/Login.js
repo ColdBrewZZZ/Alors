@@ -35,7 +35,7 @@ function Login() {
         if (response.data.success) {   
           setAuth(true);
           
-          axios.get('http://localhost:3000/users/set-cookie',  {
+          axios.get('http://localhost:3000/users/set-cookie', {
             withCredentials: true,})
             .then(cookieResponse => {
               
@@ -66,7 +66,7 @@ function Login() {
         <h1>Log In</h1>
         <hr />
       </div>
-      <div className="container mb-5">
+      <div className="login-container">
         {formFields.map((field, index) => (
           <Form.Group controlId={`form${field.name}`} key={index}>
             <Form.Label className='mt-4'>{field.label}</Form.Label>
