@@ -27,7 +27,8 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/user', function(req, res, next) {
-  connection.query('SELECT * FROM users WHERE id = 1', (err, results) => {
+  const id = req.body
+  connection.query('SELECT * FROM users WHERE id = ?', [id], (err, results) => {
     if (err) {
       console.error(err);
       res.status(500).send('Internal Server Error');
