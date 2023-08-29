@@ -1,22 +1,21 @@
 import React, { useState, useEffect, useContext } from 'react';
-import AuthContext from "../../../context/AuthProvider";
-import axios from '../../../api/axios';
+import AuthContext from "../../context/AuthProvider";
+import axios from '../../api/axios';
 import { Form, InputGroup, Button } from 'react-bootstrap';
 import { FaLock, FaEnvelope } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
-import './Login.css'
+
 
 
 
 
 const formFields = [
-  { label: 'Email', icon: <FaEnvelope />, name: 'email', placeholder: 'Enter Email' },
-  { label: 'Password', icon: <FaLock />, name: 'password', placeholder: 'Enter Password' }
+  { label: 'Email', icon: <FaEnvelope />, name: 'email', placeholder: 'Enter Email' }
 ];
 
 const message = "We couldn't log you in. Please check your email and password and try again.";
 
-function Login() {
+function ResetRequest() {
   const { setAuth } = useContext(AuthContext);
   const [info, setInfo] = useState({ email: '', password: '' });
   const [invalidLogin, setInvalidLogin] = useState(false);
@@ -63,7 +62,7 @@ function Login() {
   return (
     <>
       <div className="text-center mt-4">
-        <h1>Log In</h1>
+        <h1>New Password Request</h1>
         <hr />
       </div>
       <div className="login-container">
@@ -85,15 +84,11 @@ function Login() {
         ))}
 
         <div className="mt-4 mb-5">
-           <Button onClick={handleLogin}>Log In</Button>
-        </div>
-        <div className='pb-4'>
-          <div className="mb-2">Don't have an account yet?</div>
-          <Link to="/Registration">make a new account</Link>
+           <Button onClick={handleLogin}>Submit</Button>
         </div>
         <div className='pb-5'>
-          <div className="mb-2">Can't remember your password?</div>
-          <Link to="/ResetRequest">request a password reset link</Link>
+          <div className="mb-2">Don't have an account yet?</div>
+          <Link to="/Registration">make a new account</Link>
         </div>
        
       </div>
@@ -101,5 +96,5 @@ function Login() {
   );
 }
 
-export default Login;
+export default ResetRequest;
 

@@ -9,6 +9,7 @@ import ProductPage from './components/pages/ProductPage';
 import Cart from './components/pages/Cart';
 import Checkout from './components/pages/Checkout';
 import Registration from './components/pages/Registration';
+import ResetRequest from './components/pages/ResetRequest';
 //import New from './components/pages/Shopping/New'
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -41,6 +42,8 @@ function App() {
           <Route path="/Checkout" element={<Checkout
           />} /> 
            <Route path="/Registration" element={<Registration
+          />} /> 
+          <Route path="/ResetRequest" element={<ResetRequest
           />} /> 
         
         </Routes>
