@@ -7,12 +7,19 @@ import axios from '../../api/axios';
 
 
 function ResetRequest() {
+  const [email, setEmail] = useState('');
+
+  const handleInputChange = (event) => {
+    const { value } = event.target;
+    setEmail((prevEmail) => ({ ...prevEmail, value }));
+  };
  
   const navigate = useNavigate();
   
 
   const handleSumbit = () => {
-    axios.get('http://localhost:3000/send_email')
+    const email = "snubby601@gmail.com";
+    axios.post('http://localhost:3000/send_email', { email })
       .then(response => {  
         console.log("hello") 
         console.log(response)
@@ -32,7 +39,7 @@ function ResetRequest() {
       <div className="enter-email-container">
        
             <label>Email</label>
-            <input type="email" name="email" />
+            <input type="email" name="email"  onChange={handleInputChange}/>
       
 
         <div className="mt-4 mb-5">
@@ -49,4 +56,3 @@ function ResetRequest() {
 }
 
 export default ResetRequest;
-
