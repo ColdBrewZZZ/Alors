@@ -9,7 +9,7 @@ function useFetch(url, options = {}) {
     setIsLoading(true);
     setError(null);
 
-    fetch(url, options)
+    fetch(url)
       .then((response) => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -24,9 +24,20 @@ function useFetch(url, options = {}) {
         setError(error);
         setIsLoading(false);
       });
-  }, [url, options]);
+  }, [url]);
 
-  return { data, isLoading, error };
+  
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>there is an error</div>;
+  }
+
+  return { data };
 }
 
 export default useFetch;
+

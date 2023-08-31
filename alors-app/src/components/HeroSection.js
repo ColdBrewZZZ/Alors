@@ -2,23 +2,21 @@ import React, {useState, useEffect} from 'react';
 import '../App.css';
 import './HeroSection.css';
 import { Button } from './Button';
+import useFetch from '../api/useFetch';
 
 function HeroSection() {
-    const [heroImage, setHeroImage] = useState('');
-    useEffect(() => {
-        fetch('http://localhost:3000/hero_section_images/1')
-          .then(response => response.json())
-          .then(data => {
-            setHeroImage(data.photoPath);
-          })
-          .catch(error => {
-            console.error('Error fetching image URL:', error);
-          });
-      }, []);
+   
+
+      
+   const { data: heroImage } = useFetch(
+     'http://localhost:3000/hero_section_images/1'
+   );
+
+ 
 
     return (
         <div className='hero-container'>
-           <img className="hero-image" src={heroImage} alt="apparel"/>
+           <img className="hero-image" src={heroImage?.photoPath} alt="apparel"/>
 
             <h1>ALORS</h1>
             
