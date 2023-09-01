@@ -1,25 +1,29 @@
 import React, { useState, useEffect, useContext,useRef } from 'react';
 import { Form, InputGroup, Button } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate,useSearchParams } from 'react-router-dom';
 
 import AuthContext from "../../context/AuthProvider";
 import axios from '../../api/axios';
 
 
 function PasswordReset() {
-  
+  const [searchParams ] = useSearchParams();
 
     const formFields = [
      
         { label: 'Password', name: 'password', type:'password'},
-        { label: 'Email', name: 'email', type:'email'}
+       
       ];
 
-  
+  const token = searchParams.get('token');
+  console.log(token);
+
+
   const [info, setInfo] = useState({
     
     password: '',
-    email: '',
+    token: token
+    
     
   });
 
