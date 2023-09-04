@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import './Home.css';
 import HeroSection from '../HeroSection';
-import useFetch from '../../api/useFetch';
+import useFetchImage from '../../api/useFetchImage';
 
 function Home() {
 
 
-    const { data: imageUrl1 } = useFetch(
+    const { data: imageUrl1 } = useFetchImage(
       'http://localhost:3000/category_images/apparel'
     );
-    const { data: imageUrl2 } = useFetch(
+    const { data: imageUrl2 } = useFetchImage(
       'http://localhost:3000/category_images/shoes'
     );
-    const {data: imageUrl3 } = useFetch(
+    const {data: imageUrl3 } = useFetchImage(
       'http://localhost:3000/category_images/gifts'
     );
-    const {data: imageUrl4 } = useFetch(
+    const {data: imageUrl4 } = useFetchImage(
       'http://localhost:3000/category_images/chez_moi'
     );
   

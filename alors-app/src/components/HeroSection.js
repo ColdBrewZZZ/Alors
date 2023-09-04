@@ -2,13 +2,13 @@ import React, {useState, useEffect} from 'react';
 import '../App.css';
 import './HeroSection.css';
 import { Button } from './Button';
-import useFetch from '../api/useFetch';
+import useFetchImage from '../api/useFetchImage';
 
 function HeroSection() {
    
 
       
-   const { data: heroImage } = useFetch(
+   const { data: heroImage } = useFetchImage(
      'http://localhost:3000/hero_section_images/1'
    );
 

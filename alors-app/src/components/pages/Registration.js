@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Form, InputGroup, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import useFetch from '../../api/useFetch';
 
 
 function Registration() {
@@ -16,7 +17,7 @@ function Registration() {
         { label: 'Birthday', name: 'birthday', type:'date'}
       ];
 
-  // State variables to store form data
+
   const [info, setInfo] = useState({
     email: '',
     password: '',
@@ -27,7 +28,9 @@ function Registration() {
     birthday: '',
   });
 
-  // Event handler for form input changes
+  const registrationApiUrl = 'http://localhost:3000/insert_user';
+  const { isLoading, error, data, fetchData } = useFetch();
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setInfo({
@@ -36,13 +39,12 @@ function Registration() {
     });
   };
 
-  // Event handler for form submission
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      // Send a POST request to your server to insert data into the database
-      const response = await fetch('http://localhost:3000/insert_user', {
+      const response = await fetchData(registrationApiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -50,11 +52,10 @@ function Registration() {
         body: JSON.stringify(info),
       });
 
-      if (response.ok) {
-        navigate('/Account/OrderHistory');
-        console.log("hello")
+      if (isLoading) {
+        return <div>Loading...</div>;
       } else {
-        console.log("no no")
+        navigate('/Account/OrderHistory');
       }
     } catch (error) {
       console.error('Error registering user:', error);
