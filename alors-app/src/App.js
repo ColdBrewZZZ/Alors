@@ -11,6 +11,7 @@ import Checkout from './components/pages/Checkout';
 import Registration from './components/pages/Registration';
 import ResetRequest from './components/pages/ResetRequest';
 import PasswordReset from './components/pages/PasswordReset';
+import LoginForm from './components/pages/LoginForm';
 //import New from './components/pages/Shopping/New'
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -47,6 +48,8 @@ function App() {
           <Route path="/ResetRequest" element={<ResetRequest
           />} /> 
            <Route path="/PasswordReset" element={<PasswordReset
+          />} /> 
+            <Route path="/LoginForm" element={<LoginForm
           />} /> 
         
         </Routes>
