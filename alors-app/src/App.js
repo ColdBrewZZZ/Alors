@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
-import Home from './components/pages/Home';
-import About from './components/pages/About';
+import Home from './components/pages/Home/Home';
+import About from './components/pages/About/About';
 import Account from './components/pages/Account/Account'
-import Contact from './components/pages/Contact'
-import Shopping from './components/pages/Shopping';
-import ProductPage from './components/pages/ProductPage';
-import Cart from './components/pages/Cart';
-import Checkout from './components/pages/Checkout';
-import Registration from './components/pages/Registration';
-import ResetRequest from './components/pages/ResetRequest';
-import PasswordReset from './components/pages/PasswordReset';
+import Contact from './components/pages/Contact/Contact'
+import Shopping from './components/pages/Shopping/Shopping';
+import ProductPage from './components/pages/Shopping/ProductPage';
+import Cart from './components/pages/Shopping/Cart';
+import Checkout from './components/pages/Shopping/Checkout';
+import Registration from './components/pages/Account/Registration';
+import ResetRequest from './components/pages/PasswordReset/ResetRequest';
+import PasswordReset from './components/pages/PasswordReset/PasswordReset';
 import LoginForm from './components/pages/LoginForm';
 //import New from './components/pages/Shopping/New'
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
+import Navbar from './components/CommonComponents/Navbar';
+import Footer from './components/CommonComponents/Footer';
 
 
 
