@@ -18,10 +18,11 @@ function useFetchImage(url, options = {}) {
       })
       .then((data) => {
         setData(data);
-        setIsLoading(false);
       })
       .catch((error) => {
         setError(error);
+      })
+      .finally(() => {
         setIsLoading(false);
       });
   }, [url]);
@@ -30,7 +31,28 @@ function useFetchImage(url, options = {}) {
 
   
 
-  return { data };
+  return { data, isLoading, error };
 }
 
 export default useFetchImage;
+
+
+/*
+home page - load some products
+ show some indicator,
+ fetch the data,
+ hiding indicator
+ showing data or error
+
+product page - load product details
+ show some indicator,
+ fetch the data,
+ hiding indicator
+ showing data or error
+
+searching - load searched results
+ show some indicator,
+ fetch the data,
+ hiding indicator
+ showing data or error
+*/

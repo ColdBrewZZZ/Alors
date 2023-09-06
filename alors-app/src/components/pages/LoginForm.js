@@ -1,60 +1,66 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import AuthContext from '../../context/AuthProvider';
+import axios from '../../api/axios';
 import useFetch from '../../api/useFetch';
+import { Link, useNavigate } from 'react-router-dom';
 import { Form, InputGroup, Button } from 'react-bootstrap';
 
 const fieldConfigurations = [
   { name: 'email', type: 'email', label: 'Email', required: true },
   { name: 'password', type: 'password', label: 'Password', required: true },
-  { name: 'repassword', type: 'password', label: 'Reenter Password', required: true },
-  { name: 'title', type: 'text', label: 'Title', required: false },
-  { name: 'first_name', type: 'text', label: 'First Name', required: true },
-  { name: 'last_name', type: 'text', label: 'Last Name', required: true },
-  { name: 'phone', type: 'text', label: 'Phone Number', required: false },
-  { name: 'birthday', type: 'date', label: 'Birthday', required: false },
+ 
 ];
 
+const message = "We couldn't log you in. Please check your email and password and try again.";
+
 function LoginForm() {
-  const { isLoading, error, data, fetchData } = useFetch();
+ 
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const { setAuth } = useContext(AuthContext);
+  const [info, setInfo] = useState({ email: '', password: '' });
+  const [invalidLogin, setInvalidLogin] = useState(false);
+  const navigate = useNavigate();
+
+  const { data, isLoading, error, fetchData } = useFetch();
 
   const onSubmit = async (formData) => {
-    try {
-      if (formData.password !== formData.repassword) {
-        alert("Passwords don't match");
-        return;
-      }
-
-      if (formData.password.length < 8) {
-        alert('Password must be at least 8 characters long');
-        return;
-      }
-
-      const response = await fetchData('http://localhost:3000/insert_user', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+    const { email, password } = formData;
+    axios.post('http://localhost:3000/users/login', { email, password })
+      .then(response => {  
+        if (response.data.success) {   
+          setAuth(true);
+          
+          axios.get('http://localhost:3000/users/set-cookie', {
+            withCredentials: true,})
+            .then(cookieResponse => {
+              
+              console.log('Cookie set:', cookieResponse.data);
+            })
+            .catch(cookieError => {
+              console.error('Error setting cookie:', cookieError);
+            });
+  
+          navigate('/Account/OrderHistory');
+        } else {
+          setInvalidLogin(true);
+          
+        }
+      })
+      .catch(error => {
+        console.error('Error logging in:', error);
       });
-
-      if (isLoading) {
-        return <div>Loading...</div>;
-      } else {
-        console.log('navigate to orders page');
-      }
-    } catch (error) {
-      console.error('Error registering user:', error);
-    }
   };
+  
+ 
+
 
   return (
     <>
       <div className="text-center mt-4">
-        <h1>CREATE AN ALORS ACCOUNT</h1>
+        <h1>LOG IN</h1>
         <hr />
-        <p>fields marked with an * are required.</p>
-        <p>your password must be at least 8 characters.</p>
+       
       </div>
       <div className="container d-flex justify-content-center align-items-center">
         <div className=" text-center col-md-6 bg-white rounded pt-5 p-4 my-4 border border-black">
@@ -68,14 +74,22 @@ function LoginForm() {
                       type={field.type}
                       {...register(field.name, { required: field.required })}
                     />
-                    {field.required && <span className="text-danger ms-1">*</span>}
+                    {field.redStar && <span className="text-danger ms-1">*</span>}
                     {errors[field.name] && <span>This field is required</span>}
                   </InputGroup>
                 </Form.Group>
               </div>
             ))}
-            <Button type="submit">Sign Up</Button>
+            <Button type="submit">Log In</Button>
           </Form>
+          <div className='py-4 text-left'>
+            <div className="mb-2">Don't have an account yet?</div>
+            <Link to="/Registration">make a new account</Link>
+          </div>
+        <div className='pb-5 text-left'>
+          <div className="mb-2">Can't remember your password?</div>
+          <Link to="/ResetRequest">request a password reset link</Link>
+        </div>
         </div>
       </div>
     </>
@@ -83,3 +97,4 @@ function LoginForm() {
 }
 
 export default LoginForm;
+

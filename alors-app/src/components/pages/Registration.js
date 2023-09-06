@@ -4,12 +4,12 @@ import useFetch from '../../api/useFetch';
 import { Form, InputGroup, Button } from 'react-bootstrap';
 
 const fieldConfigurations = [
-  { name: 'email', type: 'email', label: 'Email', required: true },
-  { name: 'password', type: 'password', label: 'Password', required: true },
-  { name: 'repassword', type: 'password', label: 'Reenter Password', required: true },
+  { name: 'email', type: 'email', label: 'Email', required: true, redStar: true },
+  { name: 'password', type: 'password', label: 'Password', required: true, redStar: true },
+  { name: 'repassword', type: 'password', label: 'Reenter Password', required: true, redStar: true  },
   { name: 'title', type: 'text', label: 'Title', required: false },
-  { name: 'first_name', type: 'text', label: 'First Name', required: true },
-  { name: 'last_name', type: 'text', label: 'Last Name', required: true },
+  { name: 'first_name', type: 'text', label: 'First Name', required: true, redStar: true  },
+  { name: 'last_name', type: 'text', label: 'Last Name', required: true, redStar: true  },
   { name: 'phone', type: 'text', label: 'Phone Number', required: false },
   { name: 'birthday', type: 'date', label: 'Birthday', required: false },
 ];
@@ -68,7 +68,7 @@ function LoginForm() {
                       type={field.type}
                       {...register(field.name, { required: field.required })}
                     />
-                    {field.required && <span className="text-danger ms-1">*</span>}
+                    {field.redStar && <span className="text-danger ms-1">*</span>}
                     {errors[field.name] && <span>This field is required</span>}
                   </InputGroup>
                 </Form.Group>
