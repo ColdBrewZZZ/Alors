@@ -1,0 +1,71 @@
+.shopping-navbar {
+    width: 95%;
+    float: left;
+    padding-right: 2px;
+    display: relative;
+}
+
+.banner-container{
+   
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    object-fit: contain;
+}
+
+.banner-container > h1 {
+    color: #F9E9CA;    ;
+    font-size: 100px;
+    margin-top: -100px;
+    cursor: default; 
+  }
+
+.shopping-navbar Button{
+    margin: 10px;
+    border-radius: 20px;
+    color: #27353F;
+    background-color: #B8C098;
+}
+
+.shopping-navbar Button:hover{
+    margin: 10px;
+    border-radius: 20px;
+    color: #B8C098;
+    background-color: #27353F;
+}
+
+
+.itemCardLink {
+    text-decoration: none;
+    color:black;
+}
+.itemCardLink:hover {
+    text-decoration: none;
+    color:black;
+    
+}
+
+.item-card {
+    background-color: rgb(255, 255, 255);
+    margin-bottom: 20px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.item-card img{
+    border-radius: 20px;
+}
+
+.more-Button{
+    text-align: center;
+}
+
+.item-card:hover {
+    background-color: #B8C098;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    text-align: center;
+    border: solid 2px black;
+}
