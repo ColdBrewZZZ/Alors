@@ -1,36 +1,31 @@
 import React, { useState, useEffect, useContext } from 'react';
-import AuthContext from "../../../context/AuthProvider";
+import { useForm } from 'react-hook-form';
+import AuthContext from '../../../context/AuthProvider';
 import axios from '../../../api/axios';
-import { Form, InputGroup, Button } from 'react-bootstrap';
-import { FaLock, FaEnvelope } from 'react-icons/fa';
+import useFetch from '../../../api/useFetch';
 import { Link, useNavigate } from 'react-router-dom';
-import './Login.css'
+import { Form, InputGroup, Button } from 'react-bootstrap';
 
-
-
-
-
-const formFields = [
-  { label: 'Email', icon: <FaEnvelope />, name: 'email', placeholder: 'Enter Email' },
-  { label: 'Password', icon: <FaLock />, name: 'password', placeholder: 'Enter Password' }
+const fieldConfigurations = [
+  { name: 'email', type: 'email', label: 'Email', required: true },
+  { name: 'password', type: 'password', label: 'Password', required: true },
+ 
 ];
 
 const message = "We couldn't log you in. Please check your email and password and try again.";
 
 function Login() {
+ 
+  const { register, handleSubmit, formState: { errors } } = useForm();
   const { setAuth } = useContext(AuthContext);
   const [info, setInfo] = useState({ email: '', password: '' });
   const [invalidLogin, setInvalidLogin] = useState(false);
   const navigate = useNavigate();
-  const [users, setUsers] = useState([]);
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setInfo((prevInfo) => ({ ...prevInfo, [name]: value }));
-  };
+  const { data, isLoading, error, fetchData } = useFetch();
 
-  const handleLogin = () => {
-    const { email, password } = info;
+  const onSubmit = async (formData) => {
+    const { email, password } = formData;
     axios.post('http://localhost:3000/users/login', { email, password })
       .then(response => {  
         if (response.data.success) {   
@@ -58,48 +53,48 @@ function Login() {
   };
   
  
-  
-  
+
 
   return (
     <>
       <div className="text-center mt-4">
-        <h1>Log In</h1>
+        <h1>LOG IN</h1>
         <hr />
+       
       </div>
-      <div className="login-container">
-        {formFields.map((field, index) => (
-          <Form.Group controlId={`form${field.name}`} key={index}>
-            <Form.Label className='mt-4'>{field.label}</Form.Label>
-            <InputGroup>
-              <InputGroup.Text>{field.icon}</InputGroup.Text>
-              <Form.Control
-                type={field.name === 'password' ? 'password' : 'text'}
-                name={field.name}
-                placeholder={field.placeholder}
-                value={info[field.name]}
-                onChange={handleInputChange}
-              />
-            </InputGroup>
-            {field.name === 'password' && invalidLogin && <div className="text-danger">{message}</div>}
-          </Form.Group>
-        ))}
-
-        <div className="mt-4 mb-5">
-           <Button onClick={handleLogin}>Log In</Button>
-        </div>
-        <div className='pb-4'>
-          <div className="mb-2">Don't have an account yet?</div>
-          <Link to="/Registration">make a new account</Link>
-        </div>
-        <div className='pb-5'>
+      <div className="container d-flex justify-content-center align-items-center">
+        <div className=" text-center col-md-6 bg-white rounded pt-5 p-4 my-4 border border-black">
+          <Form onSubmit={handleSubmit(onSubmit)}>
+            {fieldConfigurations.map((field) => (
+              <div className="mb-3" key={field.name}>
+                <Form.Group>
+                  <InputGroup>
+                    <InputGroup.Text>{field.label}:</InputGroup.Text>
+                    <Form.Control
+                      type={field.type}
+                      {...register(field.name, { required: field.required })}
+                    />
+                    {field.redStar && <span className="text-danger ms-1">*</span>}
+                    {errors[field.name] && <span>This field is required</span>}
+                  </InputGroup>
+                </Form.Group>
+              </div>
+            ))}
+            <Button type="submit">Log In</Button>
+          </Form>
+          <div className='py-4 text-left'>
+            <div className="mb-2">Don't have an account yet?</div>
+            <Link to="/Registration">make a new account</Link>
+          </div>
+        <div className='pb-5 text-left'>
           <div className="mb-2">Can't remember your password?</div>
           <Link to="/ResetRequest">request a password reset link</Link>
         </div>
-       
+        </div>
       </div>
     </>
   );
 }
 
 export default Login;
+
