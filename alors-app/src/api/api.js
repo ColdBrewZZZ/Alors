@@ -1,6 +1,6 @@
 import axios from 'axios';
 axios.defaults.withCredentials = true
-const urlBase = 'http://localhost:3000' ; // could be put in the .env folder 
+const urlBase = 'http://localhost:3000' ; 
 
 export const loginUser = async (email, password) => {
   try {
@@ -25,3 +25,15 @@ export const setCookie = async () => {
       throw error;
     }
   };
+
+export const sendEmail = async (email) => {
+  try {
+    const response = await axios.post(`${urlBase}/send_email`, {
+      email
+    });
+
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

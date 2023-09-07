@@ -11,7 +11,8 @@ function PasswordReset() {
 
     const formFields = [
      
-        { label: 'Password', name: 'password', type:'password'},
+        { label: 'New Password', name: 'password', type:'password'},
+        { label: 'Reenter New Password', name: 'repassword', type:'repassword'},
        
       ];
 
