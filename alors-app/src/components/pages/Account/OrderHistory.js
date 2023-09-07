@@ -12,7 +12,7 @@ function OrderHistory() {
 
 
 
-    //set the id and then set the user 
+   
     useEffect(() => {
         axios
           .get('http://localhost:3000/users/get-cookie', { withCredentials: true })

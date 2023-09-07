@@ -5,6 +5,7 @@ import axios from '../../../api/axios';
 import useFetch from '../../../api/useFetch';
 import { Link, useNavigate } from 'react-router-dom';
 import { Form, InputGroup, Button } from 'react-bootstrap';
+import { loginUser, setCookie } from '../../../api/api';
 
 const fieldConfigurations = [
   { name: 'email', type: 'email', label: 'Email', required: true },
@@ -18,7 +19,7 @@ function Login() {
  
   const { register, handleSubmit, formState: { errors } } = useForm();
   const { setAuth } = useContext(AuthContext);
-  const [info, setInfo] = useState({ email: '', password: '' });
+  
   const [invalidLogin, setInvalidLogin] = useState(false);
   const navigate = useNavigate();
 
@@ -26,30 +27,26 @@ function Login() {
 
   const onSubmit = async (formData) => {
     const { email, password } = formData;
-    axios.post('http://localhost:3000/users/login', { email, password })
-      .then(response => {  
-        if (response.data.success) {   
-          setAuth(true);
-          
-          axios.get('http://localhost:3000/users/set-cookie', {
-            withCredentials: true,})
-            .then(cookieResponse => {
-              
-              console.log('Cookie set:', cookieResponse.data);
-            })
-            .catch(cookieError => {
-              console.error('Error setting cookie:', cookieError);
-            });
+    try {
+      const loginResponse = await loginUser(email, password);
+      
+      if (loginResponse.success) {
+        setAuth(true);
   
-          navigate('/Account/OrderHistory');
-        } else {
-          setInvalidLogin(true);
-          
+        try {
+          const cookieResponse = await setCookie();
+          console.log('Cookie set:', cookieResponse);
+        } catch (cookieError) {
+          console.error('Error setting cookie:', cookieError);
         }
-      })
-      .catch(error => {
-        console.error('Error logging in:', error);
-      });
+  
+        navigate('/Account/OrderHistory');
+      } else {
+        setInvalidLogin(true);
+      }
+    } catch (loginError) {
+      console.error('Error logging in:', loginError);
+    }
   };
   
  
