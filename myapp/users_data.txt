@@ -1,0 +1,45 @@
+[
+    {
+        "id" : 1,
+        "email" : "soo@gmail.com",
+        "password" : "pass1",
+        "title" : "mrs.",
+        "first_name" : "Soo",
+        "last_name" : "Boo",
+        "phone" : "3125238907",
+        "street_address" : "333 Clar ave.",
+        "city" : "Parkville",
+        "state" : "IL",
+        "zip_code" : "60308",
+        "birthday" : "02/04/1987"
+    },
+    {
+        "id" : 2,
+        "email" : "loo@gmail.com",
+        "password" : "pass2",
+        "title" : "mr.",
+        "first_name" : "Loo",
+        "last_name" : "Boo",
+        "phone" : "3125238907",
+        "street_address" : "333 Clar ave.",
+        "city" : "Parkville",
+        "state" : "IL",
+        "zip_code" : "60308",
+        "birthday" : "08/16/1985"
+    },
+    {
+        "id" : 3,
+        "email" : "akennerly@gmail.com",
+        "password" : "pass2",
+        "title" : "mr.",
+        "first_name" : "Alex",
+        "last_name" : "Kennerly",
+        "phone" : "1234567892",
+        "street_address" : "333 Clar ave.",
+        "city" : "Olashe",
+        "state" : "KS",
+        "zip_code" : "70308",
+        "birthday" : "09/16/1997"
+    }
+
+]

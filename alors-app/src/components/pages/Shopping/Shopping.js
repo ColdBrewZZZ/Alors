@@ -2,8 +2,8 @@ import React from 'react';
 import './Shopping.css';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import banner from '../../img/bannerAp.JPG';
-import image from '../../img/exploreAp.JPG';
+import banner from '../../../img/bannerAp.JPG';
+import image from '../../../img/exploreAp.JPG';
 
 
 function Shopping() {
