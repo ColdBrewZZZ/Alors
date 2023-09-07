@@ -1,5 +1,5 @@
 import React from 'react';
-import image from '../../img/exploreAp.JPG';
+import image from '../../../img/exploreAp.JPG';
 import './ProductPage.css';
 import { Button } from 'react-bootstrap';
 

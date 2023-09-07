@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import '../App.css';
-import './HeroSection.css';
+import '../../../App.css';
+import './WelcomeSection.css';
 import { Button } from '../../CommonComponents/Button';
 import useFetchImage from '../../../api/useFetchImage';
 
