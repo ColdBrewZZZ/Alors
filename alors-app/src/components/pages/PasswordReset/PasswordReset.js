@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useContext,useRef } from 'react';
+import React, { useState } from 'react';
 import { Form, InputGroup, Button } from 'react-bootstrap';
-import { Link, useNavigate,useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
-import AuthContext from "../../../context/AuthProvider";
-import axios from '../../../api/axios';
+
 
 
 function PasswordReset() {
