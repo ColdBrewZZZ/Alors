@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import useFetch from '../../../api/useFetch';
 import { Form, InputGroup, Button } from 'react-bootstrap';
+import { loginUser, setCookie } from '../../../api/api';
+import AuthContext from '../../../context/AuthProvider';
+import { Link, useNavigate } from 'react-router-dom';
 
 const fieldConfigurations = [
   { name: 'email', type: 'email', label: 'Email', required: true, redStar: true },
@@ -17,6 +20,10 @@ const fieldConfigurations = [
 function LoginForm() {
   const { isLoading, error, data, fetchData } = useFetch();
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const { setAuth } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const [invalidLogin, setInvalidLogin] = useState(false);
+
 
   const onSubmit = async (formData) => {
     try {
@@ -37,16 +44,42 @@ function LoginForm() {
         },
         body: JSON.stringify(formData),
       });
-
-      if (isLoading) {
-        return <div>Loading...</div>;
-      } else {
-        console.log('navigate to orders page');
-      }
+       
+     
+      
+        login(formData)
+     
     } catch (error) {
       console.error('Error registering user:', error);
     }
   };
+
+
+  
+    const login = async (formData) => {
+      const { email, password } = formData;
+      try {
+        const loginResponse = await loginUser(email, password);
+        
+        if (loginResponse.success) {
+          setAuth(true);
+    
+          try {
+            const cookieResponse = await setCookie();
+            console.log('Cookie set:', cookieResponse);
+          } catch (cookieError) {
+            console.error('Error setting cookie:', cookieError);
+          }
+    
+          navigate('/Account/OrderHistory');
+        } else {
+          setInvalidLogin(true);
+        }
+      } catch (loginError) {
+        console.error('Error logging in:', loginError);
+      }
+    };
+    
 
   return (
     <>
