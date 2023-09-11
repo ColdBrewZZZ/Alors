@@ -66,8 +66,8 @@ function PasswordReset() {
         <h1>RESET YOUR PASSWORD</h1>
         <hr />
     </div>
-    <div className="container d-flex justify-content-center align-items-center" >
-      <div className="text-center col-md-6 bg-white rounded pt-5 p-4 my-4 border border-black" >
+    <div className="container d-flex justify-content-center align-items-center mb-5 py-5" >
+      <div className="text-center col-md-6 bg-white rounded py-5 p-4 my-5 border border-black" >
         <div>  
             {formFields.map((field, index) => (
                     <div className="mb-3" key={index}>
