@@ -40,8 +40,8 @@ function ResetRequest() {
       <hr />
      
     </div>
-    <div className="container d-flex justify-content-center align-items-center">
-      <div className=" text-center col-md-6 bg-white rounded pt-5 p-4 my-4 border border-black">
+    <div className="container d-flex justify-content-center align-items-center mb-5 pb-5">
+      <div className=" text-center col-md-6 bg-white rounded pt-5 p-4 my-4 pb-5 mb-5 border border-black">
         <Form onSubmit={handleSubmit(onSubmit)}>
           {fieldConfigurations.map((field) => (
             <div className="mb-3" key={field.name}>
@@ -58,7 +58,7 @@ function ResetRequest() {
               </Form.Group>
             </div>
           ))}
-          <Button type="submit">Send Email</Button>
+          <Button type="submit">Submit</Button>
         </Form>
         <div className='py-4 text-left'>
           <div className="mb-2">Don't have an account yet?</div>
