@@ -25,7 +25,7 @@ function Home() {
     <div>
       <HeroSection />
       <div className="explore-container">
-        <div className="explore-text">Explore</div>
+        <div className="explore-text">Explore Categories</div>
         <div className="container col-12">
           <div className="row">
            

@@ -52,6 +52,8 @@
     margin-bottom: 20px;
     border-radius: 20px;
     text-align: center;
+    border: 1px solid #ccc;
+    
 }
 
 .item-card img{
@@ -68,4 +70,9 @@
     border-radius: 20px;
     text-align: center;
     border: solid 2px black;
+}
+
+.item-title{
+    height: 2cm;
+    
 }
