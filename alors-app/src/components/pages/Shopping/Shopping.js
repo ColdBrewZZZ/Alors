@@ -1,13 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Shopping.css';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import banner from '../../../img/bannerAp.JPG';
-import image from '../../../img/exploreAp.JPG';
+import ItemCard from './ShoppingComponents/ItemCard';
 
 
 function Shopping() {
+  const [items, setItems] = useState([]);
+
   
+
+  const url = "http://localhost:3000/items";
+
+  const fetchItems = async (url) => {
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      
+      setItems(data)  
+      return data.results;
+    } catch (error) {
+      console.error('Error fetching items:', error);
+      return [];
+    }
+  };
+
+  useEffect(() => {
+    fetchItems(url);
+    console.log(items);
+  }, []);
 
   return (
     <>
@@ -46,86 +68,18 @@ function Shopping() {
       </div>
       <div class="container mt-2">
             <div class="row">
-                <div class="col-sm">
-                <Link className="itemCardLink" to='/ProductPage'>
-                    <div class="item-card">
-                        <img
-                                src={image}
-                                alt='image'
-                                style={{ width: '100%'}}
-                                />
-                            <h2 className="item-title">Item Title</h2>
-                            <p className="item-price">$900</p>
-                            <Button className="mb-3">Add to Cart</Button>
-                    </div>
-                </Link>
-                </div>
-                <div class="col-sm">
-                    <div class="item-card">
-                        <img
-                                src={image}
-                                alt='image'
-                                style={{ width: '100%'}}
-                                />
-                            <h2 className="item-title">Item Title</h2>
-                            <p className="item-price">$900</p>
-                            <Button className="mb-2">Add to Cart</Button>
-                    </div>
-                </div>
-                <div class="col-sm">
-               
-                <div class="item-card">
-                        <img
-                                src={image}
-                                alt='image'
-                                style={{ width: '100%'}}
-                                />
-                            <h2 className="item-title">Item Title</h2>
-                            <p className="item-price">$900</p>
-                            <Button>Add to Cart</Button>
-                    </div>
-           
-                    
-                </div>
+              {items.map((item) => (
+                <ItemCard
+                  
+                  id={item.id}
+                  image={item.photo_path}
+                  name={item.name}
+                  price={item.price}
+                 
+                  
+                />
+              ))}
                 
-            </div>
-            <div class="row">
-                <div class="col-sm">
-                    <div class="item-card">
-                        <img
-                                src={image}
-                                alt='image'
-                                style={{ width: '100%'}}
-                                />
-                            <h2 className="item-title">Item Title</h2>
-                            <p className="item-price">$900</p>
-                            <Button>Add to Cart</Button>
-                    </div>
-                </div>
-                <div class="col-sm">
-                    <div class="item-card">
-                        <img
-                                src={image}
-                                alt='image'
-                                style={{ width: '100%'}}
-                                />
-                            <h2 className="item-title">Item Title</h2>
-                            <p className="item-price">$900</p>
-                            <Button>Add to Cart</Button>
-                    </div>
-                </div>
-                <div class="col-sm">
-                    <div class="item-card">
-                        <img
-                                src={image}
-                                alt='image'
-                                style={{ width: '100%'}}
-                                />
-                            <h2 className="item-title">Item Title</h2>
-                            <p className="item-price">$900</p>
-                            <Button>Add to Cart</Button>
-                    </div>
-                </div>
                 
             </div>
            
