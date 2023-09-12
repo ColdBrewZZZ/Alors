@@ -28,7 +28,7 @@ function Shopping() {
 
   useEffect(() => {
     fetchItems(url);
-    console.log(items);
+  
   }, []);
 
   return (
