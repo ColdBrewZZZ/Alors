@@ -8,6 +8,17 @@ function Cart() {
   const userCart = JSON.parse(localStorage.getItem('user_cart')) || [];
   const url = "http://localhost:3000/items";
 
+  // Define a function to remove an item from the cart
+  const removeItemFromCart = (itemId) => {
+    // Remove the item from local storage
+    const updatedUserCart = userCart.filter((item) => item.item_id !== itemId);
+    localStorage.setItem('user_cart', JSON.stringify(updatedUserCart));
+
+    // Update the cartItems state
+    const updatedCartItems = cartItems.filter((item) => item.id !== itemId);
+    setCartItems(updatedCartItems);
+  };
+
   const fetchItem = async (url, id, itemCartQuantity) => {
     try {
       const response = await fetch(`${url}/${id}`);
@@ -61,6 +72,7 @@ function Cart() {
                 description={item.description} 
                 price={item.price}
                 quantity={item.quantity}
+                onRemove={() => removeItemFromCart(item.id)}
               />
             ))}
           </div>

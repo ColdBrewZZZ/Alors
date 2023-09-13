@@ -4,7 +4,11 @@ import '../Cart.css';
 import { Button } from 'react-bootstrap';
 
 function CartItemCard(props) {
-
+    const handleRemoveClick = () => {
+        if (props.onRemove) {
+          props.onRemove();
+        }
+      };
 
   return (
     <div className='item-details border border-dark' >
@@ -17,7 +21,9 @@ function CartItemCard(props) {
                         <p>{props.name}</p>
                         <p>{props.description}</p>
                         <p>${props.price}</p>
-                        <Button className="btn btn-light border border-dark">remove</Button>
+                        <Button className="btn btn-light border border-dark" onClick={handleRemoveClick}>
+                            remove
+                        </Button>
                     </div>
                     <div class="col-4">
                         <div>
@@ -37,5 +43,4 @@ function CartItemCard(props) {
 }
 
 export default CartItemCard;
-
 
