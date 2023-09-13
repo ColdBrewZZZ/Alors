@@ -8,16 +8,40 @@ function Cart() {
   const userCart = JSON.parse(localStorage.getItem('user_cart')) || [];
   const url = "http://localhost:3000/items";
 
-  // Define a function to remove an item from the cart
+
   const removeItemFromCart = (itemId) => {
-    // Remove the item from local storage
     const updatedUserCart = userCart.filter((item) => item.item_id !== itemId);
     localStorage.setItem('user_cart', JSON.stringify(updatedUserCart));
 
-    // Update the cartItems state
     const updatedCartItems = cartItems.filter((item) => item.id !== itemId);
     setCartItems(updatedCartItems);
   };
+
+  const incrementQuantity = (itemId) => {
+    const updatedCartItems = cartItems.map((item) => {
+      if (item.id === itemId) {
+        item.quantity += 1;
+      }
+      return item;
+    });
+    setCartItems(updatedCartItems);
+  };
+
+  const decrementQuantity = (itemId) => {
+    const updatedCartItems = cartItems.map((item) => {
+      if (item.id === itemId) {
+        item.quantity -= 1;
+        if (item.quantity <= 0) {
+            return null;
+        }
+      }
+      return item;
+    });
+    const filteredCartItems = updatedCartItems.filter((item) => item !== null);
+    setCartItems(filteredCartItems);
+  };
+
+
 
   const fetchItem = async (url, id, itemCartQuantity) => {
     try {
@@ -73,6 +97,8 @@ function Cart() {
                 price={item.price}
                 quantity={item.quantity}
                 onRemove={() => removeItemFromCart(item.id)}
+                onIncrement={() => incrementQuantity(item.id)} 
+                onDecrement={() => decrementQuantity(item.id)}
               />
             ))}
           </div>
@@ -81,7 +107,7 @@ function Cart() {
               <h2>ORDER DETAILS</h2>
               <p>{cartItems.reduce((total, item) => total + item.quantity, 0)} items in cart</p>
 
-              <p>order total: ${cartItems.reduce((total, item) => total + item.price, 0)}</p>
+              <p>order total: ${cartItems.reduce((total, item) => total + item.price * item.quantity, 0)}</p>
               <Button>PROCEED TO CHECKOUT</Button>
             </div>
           </div>
