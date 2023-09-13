@@ -10,6 +10,18 @@ function CartItemCard(props) {
         }
       };
 
+    const handleIncrementClick = () => {
+    if (props.onIncrement) {
+        props.onIncrement();
+    }
+    };
+
+    const handleDecrementClick = () => {
+    if (props.onDecrement) {
+        props.onDecrement();
+    }
+    };
+
   return (
     <div className='item-details border border-dark' >
             <div class="container">
@@ -31,8 +43,12 @@ function CartItemCard(props) {
                         </div>
                         <div className="container">
                             <div className="row">
-                                        <Button className="qty-btn btn-light border border-dark col">+</Button>
-                                        <Button className="qty-btn btn-dark col">-</Button>  
+                                        <Button className="qty-btn btn-light border border-dark col" onClick={handleIncrementClick}>
+                                            +
+                                        </Button>
+                                        <Button className="qty-btn btn-dark col" onClick={handleDecrementClick}>
+                                            -
+                                        </Button>  
                             </div>
                         </div>      
                     </div>        
