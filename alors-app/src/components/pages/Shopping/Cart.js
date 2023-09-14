@@ -32,6 +32,7 @@ function Cart() {
       if (item.id === itemId) {
         item.quantity -= 1;
         if (item.quantity <= 0) {
+            removeItemFromCart(itemId);
             return null;
         }
       }
@@ -55,7 +56,6 @@ function Cart() {
         price: data.price,
         quantity: itemCartQuantity
       };
-      console.log(cartItems)
       return cartItem;
     } catch (error) {
       console.error('Error fetching items:', error);
