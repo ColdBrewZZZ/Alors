@@ -4,7 +4,7 @@ import './OrderHistory.css';
 import { Button } from 'react-bootstrap';
 import axios from '../../../api/axios';
 
-
+ 
 
 function OrderHistory() {
    
@@ -19,10 +19,10 @@ function OrderHistory() {
           .then((response) => { 
            
             const id = response.data.userID;
-            console.log(id);
+         
             axios.post('http://localhost:3000/users/user', { id })
                     .then((response) => {
-                    console.log(response)
+                
                     setUser(response.data[0]);
                 }) 
                 .catch((error) => {

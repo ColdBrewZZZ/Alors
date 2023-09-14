@@ -39,6 +39,32 @@ function Login() {
         } catch (cookieError) {
           console.error('Error setting cookie:', cookieError);
         }
+
+        const userCart = JSON.parse(localStorage.getItem('user_cart'));
+
+        if (userCart && Array.isArray(userCart)) {
+          for (const item of userCart) {
+            const { item_id, quantity } = item;
+            const userId = 1; // Placeholder for user's ID
+            console.log(item_id)
+            console.log(quantity)
+  
+            try {
+
+              const response = await fetchData('http://localhost:3000/user_cart', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ user_id: userId, item_id, quantity }),
+              });
+              
+              console.log('Item added to user_cart:', response);
+            } catch (postError) {
+              console.error('Error adding item to user_cart:', postError);
+            }
+          }
+        }
   
         navigate('/Account/OrderHistory');
       } else {
