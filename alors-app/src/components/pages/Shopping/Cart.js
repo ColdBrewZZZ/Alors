@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Cart.css';
 import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import CartItemCard from './ShoppingComponents/CartItemCard';
 
 function Cart() {
@@ -108,13 +109,17 @@ function Cart() {
               <p>{cartItems.reduce((total, item) => total + item.quantity, 0)} items in cart</p>
 
               <p>order total: ${cartItems.reduce((total, item) => total + item.price * item.quantity, 0)}</p>
-              <Button>PROCEED TO CHECKOUT</Button>
+              <Link to={`/Checkout`}>
+                <Button>PROCEED TO CHECKOUT</Button>
+              </Link>
             </div>
           </div>
         </div>
       </div>
       <div className='m-2'>
+      <Link to={`/Shopping`}>
         <Button>Back to Shopping</Button>
+      </Link>
       </div>
     </>
   );
