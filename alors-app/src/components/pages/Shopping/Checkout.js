@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Form, InputGroup} from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import axios from '../../../api/axios';
+import CheckoutItemCard from './ShoppingComponents/CheckoutItemCard';
 
 const contactInformationInputFields = [
     { name: 'email', type: 'email', label: 'Email', required: true, redStar:true },
@@ -23,37 +24,72 @@ const shippingInformationInputFields = [
     { name: 'zip_code', type: 'text', label: 'Zip Code', required: true, redStar:true},
   ];
 
-function Checkout() {
-  
+  function Checkout() {
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const [user, setUser] = useState();
+    const [userCartItems, setUserCartItems] = useState([]);
+    const [checkoutItems, setCheckoutItems] = useState([]);
 
-     
-    const [user, setUser] = useState({ first_name: "user" });
     const navigate = useNavigate();
 
-
    
-    useEffect(() => {
-        axios
-          .get('http://localhost:3000/users/get-cookie', { withCredentials: true })
-          .then((response) => {
-            const id = response.data.userID;
-            if (id == undefined){
-                navigate('/Account');
-            }
-            axios.post('http://localhost:3000/users/user', { id })
-              .then((response) => {
-                setUser(response.data[0]);
-              })
-              .catch((error) => {
-                console.error('error fetching user data:', error);
-              });
-          })
-          .catch((error) => {
-            console.error('Error fetching id:', error);
-            navigate('/Account');
-          });
-      }, []);
+  useEffect(() => {
+    // Fetch user data
+    axios.get('http://localhost:3000/users/get-cookie', { withCredentials: true })
+      .then((response) => {
+        const id = response.data.userID;
+        if (id === undefined) {
+          navigate('/Account');
+        } else {
+          // Fetch user information
+          axios.post('http://localhost:3000/users/user', { id })
+            .then((userResponse) => {
+              setUser(userResponse.data[0]);
+
+              // Fetch user cart data
+              axios.get(`http://localhost:3000/user_cart/${id}`)
+                .then((cartResponse) => {
+                  setUserCartItems(cartResponse.data);
+
+                  // Fetch item details for each item in userCartItems
+                  const itemPromises = cartResponse.data.map((item) =>
+                    axios.get(`http://localhost:3000/items/${item.item_id}`)
+                  );
+
+                  // Wait for all item details requests to complete
+                  Promise.all(itemPromises)
+                    .then((itemResponses) => {
+                      const checkoutItemsData = itemResponses.map((response, index) => {
+                        const itemData = response.data;
+                        const cartItem = cartResponse.data[index];
+                        return {
+                          photo_path: itemData.photo_path,
+                          name: itemData.name,
+                          price: itemData.price,
+                          quantity: cartItem.quantity
+                        };
+                      });
+                      setCheckoutItems(checkoutItemsData);
+                      console.log('checkoutItems:', checkoutItemsData);
+                    })
+                    .catch((error) => {
+                      console.error('Error fetching item details:', error);
+                    });
+                })
+                .catch((error) => {
+                  console.error('Error fetching user cart data:', error);
+                });
+            })
+            .catch((error) => {
+              console.error('Error fetching user data:', error);
+            });
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching id:', error);
+        navigate('/Account');
+      });
+  }, [navigate]);
 
   return (
     <>
@@ -113,28 +149,34 @@ function Checkout() {
                
             </div>
             <div className="col-sm">
-            <div className='item-details' >
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-4">
-                                    <img className="item-image" src={image} alt="Item" />
-                                </div>
-                                <div class="col-4">
-                                    <p>Name of item</p>
-                                    <p>$900</p>
-                                    <Button className="btn btn-light">remove</Button>
-                                </div>
-                                     
-                            </div>  
-                        </div> 
+                <div className='item-details' >
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-4">
+                                <img className="item-image" src={image} alt="Item" />
+                            </div>
+                            <div class="col-4">
+                                <p>item.name</p>
+                                <p>$900</p>
+                                <Button className="btn btn-light">remove</Button>
+                            </div>
+                                    
+                        </div>  
+                    </div> 
                 </div>
+                {checkoutItems.map((item) => (
+                    <CheckoutItemCard
+                        image={item.photo_path}
+                        name={item.name}
+                        price={item.price}
+                        quantity ={item.quantity}
+                    />
+                    ))}
                 <div className='order-details' >
                         <h2>ORDER DETAILS</h2>
                         <p>4 items in cart</p>
                         <p>order total: $3600</p>
                         <Button>SUBMIT ORDER</Button> 
-               
-                
                 </div>
             
             </div>
