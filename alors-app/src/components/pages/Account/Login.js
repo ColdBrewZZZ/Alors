@@ -25,43 +25,48 @@ function Login() {
 
   const { data, isLoading, error, fetchData } = useFetch();
 
+  const [ userId, setUserId ] = useState();
+
   const onSubmit = async (formData) => {
     const { email, password } = formData;
     try {
       const loginResponse = await loginUser(email, password);
-      
+  
       if (loginResponse.success) {
         setAuth(true);
   
         try {
           const cookieResponse = await setCookie();
-          console.log('Cookie set:', cookieResponse);
+         
         } catch (cookieError) {
           console.error('Error setting cookie:', cookieError);
         }
-
+  
         const userCart = JSON.parse(localStorage.getItem('user_cart'));
-
+  
         if (userCart && Array.isArray(userCart)) {
           for (const item of userCart) {
             const { item_id, quantity } = item;
-            const userId = 1; // Placeholder for user's ID
-            console.log(item_id)
-            console.log(quantity)
-  
             try {
-
-              const response = await fetchData('http://localhost:3000/user_cart', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ user_id: userId, item_id, quantity }),
-              });
-              
-              console.log('Item added to user_cart:', response);
-            } catch (postError) {
-              console.error('Error adding item to user_cart:', postError);
+              const response = await axios.get('http://localhost:3000/users/get-cookie', { withCredentials: true });
+              const userId = response.data.userID;
+             
+  
+              try {
+                const response = await fetchData('http://localhost:3000/user_cart', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({ user_id: userId, item_id, quantity }),
+                });
+  
+             
+              } catch (postError) {
+                console.error('Error adding item to user_cart:', postError);
+              }
+            } catch (error) {
+              console.error('Error fetching id:', error);
             }
           }
         }
@@ -74,6 +79,7 @@ function Login() {
       console.error('Error logging in:', loginError);
     }
   };
+  
   
  
 
