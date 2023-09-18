@@ -11,7 +11,7 @@ import Checkout from './components/pages/Shopping/Checkout';
 import Registration from './components/pages/Account/Registration';
 import ResetRequest from './components/pages/PasswordReset/ResetRequest';
 import PasswordReset from './components/pages/PasswordReset/PasswordReset';
-import LoginForm from './components/pages/LoginForm';
+
 //import New from './components/pages/Shopping/New'
 import Navbar from './components/CommonComponents/Navbar';
 import Footer from './components/CommonComponents/Footer';
@@ -19,6 +19,7 @@ import Footer from './components/CommonComponents/Footer';
 
 
 import './App.css';
+import Reciept from './components/pages/Shopping/Receipt';
 
 function App() {
   return (
@@ -49,7 +50,8 @@ function App() {
           />} /> 
            <Route path="/PasswordReset" element={<PasswordReset
           />} /> 
-            <Route path="/LoginForm" element={<LoginForm
+          
+           <Route path="/Receipt" element={<Reciept
           />} /> 
         
         </Routes>
