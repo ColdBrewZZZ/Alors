@@ -5,6 +5,11 @@ import { Button } from 'react-bootstrap';
 
 
 function CheckoutItemCard(props) {
+
+   
+        const handleRemoveItem = () => {
+          props.onRemoveItem(props.id);
+        };
     
   return (
     <div className='item-details' >
@@ -17,7 +22,7 @@ function CheckoutItemCard(props) {
                                 <p>{props.name}</p>
                                 <p>${props.price}</p>
                                 <p>Qty: {props.quantity}</p>
-                                <Button className="btn btn-light">remove</Button>
+                                <Button className="btn btn-light" onClick={handleRemoveItem}>remove</Button>
                             </div>
                                     
                         </div>  
