@@ -107,15 +107,20 @@ const shippingInformationInputFields = [
       .then((response) => {
         setUserCartItems(prevUserCartItems => prevUserCartItems.filter(item => item.id !== itemId));
   
+        // Remove the item from checkoutItems
         setCheckoutItems(prevCheckoutItems =>
           prevCheckoutItems.filter(item => item.id !== itemId)
         );
+  
+        // Remove the item from user_cart in local storage
+        const userCartLocalStorage = JSON.parse(localStorage.getItem('user_cart')) || [];
+        const updatedUserCart = userCartLocalStorage.filter(item => item.item_id !== itemId);
+        localStorage.setItem('user_cart', JSON.stringify(updatedUserCart));
       })
       .catch((error) => {
         console.error('Error removing item from cart:', error);
       });
   };
-  
 
       useEffect(() => {
       }, [checkoutItems]);
