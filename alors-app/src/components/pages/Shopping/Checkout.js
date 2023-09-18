@@ -33,75 +33,92 @@ const shippingInformationInputFields = [
     const navigate = useNavigate();
 
    
-    useEffect(() => {
-        // Fetch user data
-        axios.get('http://localhost:3000/users/get-cookie', { withCredentials: true })
-          .then((response) => {
-            const id = response.data.userID;
-            if (id === undefined) {
-              navigate('/Account');
-            } else {
-              // Fetch user information
-              axios.post('http://localhost:3000/users/user', { id })
-                .then((userResponse) => {
-                  setUser(userResponse.data[0]);
-      
-                  // Fetch user cart data
-                  axios.get(`http://localhost:3000/user_cart/${id}`)
-                    .then((cartResponse) => {
-                      setUserCartItems(cartResponse.data);
-      
-                      // Fetch item details for each item in userCartItems
-                      const itemPromises = cartResponse.data.map((item) =>
-                        axios.get(`http://localhost:3000/items/${item.item_id}`)
-                      );
-      
-                      // Wait for all item details requests to complete
-                      Promise.all(itemPromises)
-                        .then((itemResponses) => {
-                          const checkoutItemsData = [];
-                          itemResponses.forEach((response, index) => {
-                            const itemData = response.data;
-                            const cartItem = cartResponse.data[index];
-                            const existingCheckoutItemIndex = checkoutItemsData.findIndex(
-                              (checkoutItem) => checkoutItem.id === itemData.id
-                            );
-      
-                            if (existingCheckoutItemIndex !== -1) {
-                              // Item with the same id already exists, update quantity
-                              checkoutItemsData[existingCheckoutItemIndex].quantity += cartItem.quantity;
-                            } else {
-                              // Item with a new id, add it to checkoutItemsData
-                              checkoutItemsData.push({
-                                id: itemData.id,
-                                photo_path: itemData.photo_path,
-                                name: itemData.name,
-                                price: itemData.price,
-                                quantity: cartItem.quantity,
-                              });
-                            }
+  useEffect(() => {
+    // Fetch user data
+    axios.get('http://localhost:3000/users/get-cookie', { withCredentials: true })
+      .then((response) => {
+        const id = response.data.userID;
+        if (id === undefined) {
+          navigate('/Account');
+        } else {
+          // Fetch user information
+          axios.post('http://localhost:3000/users/user', { id })
+            .then((userResponse) => {
+              setUser(userResponse.data[0]);
+
+              // Fetch user cart data
+              axios.get(`http://localhost:3000/user_cart/${id}`)
+                .then((cartResponse) => {
+                  setUserCartItems(cartResponse.data);
+
+                  // Fetch item details for each item in userCartItems
+                  const itemPromises = cartResponse.data.map((item) =>
+                    axios.get(`http://localhost:3000/items/${item.item_id}`)
+                  );
+
+                  Promise.all(itemPromises)
+                    .then((itemResponses) => {
+                      const checkoutItemsData = [];
+                      itemResponses.forEach((response, index) => {
+                        const itemData = response.data;
+                        const cartItem = cartResponse.data[index];
+                        const existingCheckoutItemIndex = checkoutItemsData.findIndex(
+                          (checkoutItem) => checkoutItem.id === itemData.id
+                        );
+
+                        if (existingCheckoutItemIndex !== -1) {
+                          // Item with the same id already exists, update quantity
+                          checkoutItemsData[existingCheckoutItemIndex].quantity += cartItem.quantity;
+                        } else {
+                          // Item with a new id, add it to checkoutItemsData
+                          checkoutItemsData.push({
+                            id: itemData.id,
+                            photo_path: itemData.photo_path,
+                            name: itemData.name,
+                            price: itemData.price,
+                            quantity: cartItem.quantity,
                           });
-                          setCheckoutItems(checkoutItemsData);
-                          console.log('checkoutItems:', checkoutItemsData);
-                        })
-                        .catch((error) => {
-                          console.error('Error fetching item details:', error);
-                        });
+                        }
+                      });
+                      setCheckoutItems(checkoutItemsData);
+                      console.log('checkoutItems:', checkoutItemsData);
                     })
                     .catch((error) => {
-                      console.error('Error fetching user cart data:', error);
+                      console.error('Error fetching item details:', error);
                     });
                 })
                 .catch((error) => {
-                  console.error('Error fetching user data:', error);
+                  console.error('Error fetching user cart data:', error);
                 });
-            }
-          })
-          .catch((error) => {
-            console.error('Error fetching id:', error);
-            navigate('/Account');
-          });
-      }, [navigate]);
+            })
+            .catch((error) => {
+              console.error('Error fetching user data:', error);
+            });
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching id:', error);
+        navigate('/Account');
+      });
+  }, [navigate]);
+
+  const handleRemoveItem = (itemId) => {
+    axios.get(`http://localhost:3000/user_cart/remove/${itemId}`)
+      .then((response) => {
+        setUserCartItems(prevUserCartItems => prevUserCartItems.filter(item => item.id !== itemId));
+  
+        setCheckoutItems(prevCheckoutItems =>
+          prevCheckoutItems.filter(item => item.id !== itemId)
+        );
+      })
+      .catch((error) => {
+        console.error('Error removing item from cart:', error);
+      });
+  };
+  
+
+      useEffect(() => {
+      }, [checkoutItems]);
 
   return (
     <>
@@ -113,7 +130,7 @@ const shippingInformationInputFields = [
         <div className="row">
             <div className="col-sm">
                 <h6>CONTACT INFORMATION</h6>
-                    <div className=" text-center col-md-6 bg-white rounded pt-5 p-4 my-4 border border-black">
+                    <div className=" text-center col-sm bg-white rounded pt-5 p-4 my-4 border border-black">
                         <Form>
                             {contactInformationInputFields.map((field) => (
                                 <div className="mb-3" key={field.name}>
@@ -138,7 +155,7 @@ const shippingInformationInputFields = [
 
                 <h6>SHIPPING INFORMATION</h6>
                 {/* title, first name, last name, street address, apt/floor/suite, city, state, zip */}
-                <div className=" text-center col-md-6 bg-white rounded pt-5 p-4 my-4 border border-black">
+                <div className=" text-center col-sm bg-white rounded pt-5 p-4 my-4 border border-black">
                         <Form>
                             {shippingInformationInputFields.map((field) => (
                                 <div className="mb-3" key={field.name}>
@@ -162,21 +179,25 @@ const shippingInformationInputFields = [
             </div>
             <div className="col-sm">
                
-                {checkoutItems.map((item) => (
-                    <CheckoutItemCard
-                        image={item.photo_path}
-                        name={item.name}
-                        price={item.price}
-                        quantity ={item.quantity}
-                    />
-                    ))}
-                <div className='order-details' >
+                    {checkoutItems.map((item) => (
+                            <CheckoutItemCard
+                                id={item.id}
+                                image={item.photo_path}
+                                name={item.name}
+                                price={item.price}
+                                quantity ={item.quantity}
+                                onRemoveItem={handleRemoveItem}
+                            />
+                            ))}
+            </div>
+            <div className="col-sm">
+            <div className='order-details' >
                         <h2>ORDER DETAILS</h2>
                         <p>4 items</p>
                         <p>order total: $3600</p>
                         <Button>SUBMIT ORDER</Button> 
                 </div>
-            
+             
             </div>
         </div>
     </div>
