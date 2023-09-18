@@ -67,10 +67,10 @@ const shippingInformationInputFields = [
                         );
 
                         if (existingCheckoutItemIndex !== -1) {
-                          // Item with the same id already exists, update quantity
+
                           checkoutItemsData[existingCheckoutItemIndex].quantity += cartItem.quantity;
                         } else {
-                          // Item with a new id, add it to checkoutItemsData
+    
                           checkoutItemsData.push({
                             id: itemData.id,
                             photo_path: itemData.photo_path,
@@ -198,8 +198,8 @@ const shippingInformationInputFields = [
             <div className="col-sm">
             <div className='order-details' >
                         <h2>ORDER DETAILS</h2>
-                        <p>4 items</p>
-                        <p>order total: $3600</p>
+                        <p>{checkoutItems.reduce((total, item) => total + item.quantity, 0)} items</p>
+                        <p>order total: ${checkoutItems.reduce((total, item) => total + item.price * item.quantity, 0)}</p>
                         <Button>SUBMIT ORDER</Button> 
                 </div>
              
