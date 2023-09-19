@@ -200,7 +200,9 @@ const shippingInformationInputFields = [
                         <h2>ORDER DETAILS</h2>
                         <p>{checkoutItems.reduce((total, item) => total + item.quantity, 0)} items</p>
                         <p>order total: ${checkoutItems.reduce((total, item) => total + item.price * item.quantity, 0)}</p>
-                        <Button>SUBMIT ORDER</Button> 
+                        <Link to={`/Receipt`}>
+                            <Button>SUBMIT ORDER</Button>
+                        </Link>
                 </div>
              
             </div>
