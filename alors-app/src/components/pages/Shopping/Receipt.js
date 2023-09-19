@@ -17,13 +17,13 @@ function Reciept() {
         </div>
         <div className="receipt-container text-center mx-5 mb-5 p-5">
             <div className="row m-1 mb-2">
-                <Link>BACK TO SHOPPING</Link>
+                <Link to={`/Shopping`}>BACK TO SHOPPING</Link>
             </div>
             <div className="row">
                 <p>or</p>
             </div>
             <div className="row mx-3">
-                <Link>LOOK AT YOUR ORDER HISTORY</Link>
+                <Link to={`/Account/OrderHistory`}>LOOK AT YOUR ORDER HISTORY</Link>
             </div> 
       
     </div>
