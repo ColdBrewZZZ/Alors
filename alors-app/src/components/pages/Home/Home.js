@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Home.css';
 import HeroSection from './WelcomeSection';
 import useFetchImage from '../../../api/useFetchImage';
+import { Link } from 'react-router-dom';
 
 function Home() {
 
@@ -29,28 +30,40 @@ function Home() {
         <div className="container col-12">
           <div className="row">
            
-             
+            
             <div className="explore-img">
-                <img src={imageUrl1?.photoUrl} alt="apparel"/>
-                <div className="explore-txt">APPAREL</div>         
+                <Link  to={`/Shopping`}>
+                    <img src={imageUrl1?.photoUrl} alt="apparel"/>
+                    <div className="explore-txt">APPAREL</div>    
+                </Link>  
+                <div className="explore-txt">APPAREL</div> 
               </div>
               
       
          
               <div className="explore-img">
-                <img src={imageUrl2?.photoUrl} alt="shoes" />
+                <Link  to={`/Shopping`}>
+                  <img src={imageUrl2?.photoUrl} alt="shoes" />
+                  
+                </Link>
                 <div className="explore-txt">SHOES</div> 
               </div>
          
           
               <div className="explore-img">
-                <img src={imageUrl3?.photoUrl} alt="gifts" />
+                <Link  to={`/Shopping`}>
+                  <img src={imageUrl3?.photoUrl} alt="gifts" />
+                  
+                </Link>
                 <div className="explore-txt">GIFTS</div> 
               </div>
            
           
               <div className="explore-img">
-                <img src={imageUrl4?.photoUrl} alt="chez moi" />
+                <Link  to={`/Shopping`}>
+                  <img src={imageUrl4?.photoUrl} alt="chez moi" />
+                
+                </Link>
                 <div className="explore-txt">CHEZ MOI</div> 
               </div>
           </div>

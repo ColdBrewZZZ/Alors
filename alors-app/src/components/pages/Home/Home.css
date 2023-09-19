@@ -61,3 +61,6 @@ body {
     cursor: pointer;
   }
   
+  .explore-img img:hover {
+    border: 3px solid #000; 
+  }
