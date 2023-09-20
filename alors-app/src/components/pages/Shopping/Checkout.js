@@ -33,101 +33,144 @@ const shippingInformationInputFields = [
     const [checkoutItems, setCheckoutItems] = useState([]);
     const [addressId, setAddressId] = useState([]);
    
+   
+    const userCart = JSON.parse(localStorage.getItem('user_cart')) || [];
+    const url = "http://localhost:3000/items";
 
     const navigate = useNavigate();
 
-   
-  useEffect(() => {
-    // Fetch user data
-    axios.get('http://localhost:3000/users/get-cookie', { withCredentials: true })
-      .then((response) => {
-        const id = response.data.userID;
-        if (id === undefined) {
-          navigate('/Account');
-        } else {
-          // Fetch user information
-          axios.post('http://localhost:3000/users/user', { id })
-            .then((userResponse) => {
-              setUser(userResponse.data[0]);
-
-              // Fetch user cart data
-              axios.get(`http://localhost:3000/user_cart/${id}`)
-                .then((cartResponse) => {
-                  setUserCartItems(cartResponse.data);
-
-                  // Fetch item details for each item in userCartItems
-                  const itemPromises = cartResponse.data.map((item) =>
-                    axios.get(`http://localhost:3000/items/${item.item_id}`)
-                  );
-
-                  Promise.all(itemPromises)
-                    .then((itemResponses) => {
-                      const checkoutItemsData = [];
-                      itemResponses.forEach((response, index) => {
-                        const itemData = response.data;
-                        const cartItem = cartResponse.data[index];
-                        const existingCheckoutItemIndex = checkoutItemsData.findIndex(
-                          (checkoutItem) => checkoutItem.id === itemData.id
-                        );
-
-                        if (existingCheckoutItemIndex !== -1) {
-
-                          checkoutItemsData[existingCheckoutItemIndex].quantity += cartItem.quantity;
-                        } else {
+    const fetchItem = async (url, id, itemCartQuantity) => {
+      try {
+        const response = await fetch(`${url}/${id}`);
+        const data = await response.json();
+        const cartItem = {
+          id: data.id,
+          photo_path: data.photo_path,
+          name: data.name,
+          description: data.description,
+          price: data.price,
+          quantity: itemCartQuantity
+        };
+        return cartItem;
+      } catch (error) {
+        console.error('Error fetching items:', error);
+        return null;
+      }
+    };
     
-                          checkoutItemsData.push({
-                            id: itemData.id,
-                            photo_path: itemData.photo_path,
-                            name: itemData.name,
-                            price: itemData.price,
-                            quantity: cartItem.quantity,
-                          });
-                        }
-                      });
-                      setCheckoutItems(checkoutItemsData);
+    useEffect(() => {
+      if (userCart && userCart.length > 0) {
+        const fetchCartItems = async () => {
+          const updatedCartItems = await Promise.all(
+            userCart.map(item => fetchItem(url, item.item_id, item.quantity))
+          );
+          const filteredCartItems = updatedCartItems.filter(item => item !== null);
+          setCheckoutItems(filteredCartItems);
+        };
+        fetchCartItems();
+      }
+    }, []);
+
+    // handleRemoveItem lc version (identical to removeItemFromCart in Cart.js besides cartItems vs checkoutItems)
+    const handleRemoveItem = (itemId) => {
+      const updatedUserCart = userCart.filter((item) => item.item_id !== itemId);
+      localStorage.setItem('user_cart', JSON.stringify(updatedUserCart));
+      const updatedCartItems = checkoutItems.filter((item) => item.id !== itemId);
+      setCheckoutItems(updatedCartItems);
+    };
+    
+   
+  // useEffect(() => {
+  //   // Fetch user data
+  //   axios.get('http://localhost:3000/users/get-cookie', { withCredentials: true })
+  //     .then((response) => {
+  //       const id = response.data.userID;
+  //       if (id === undefined) {
+  //         navigate('/Account');
+  //       } else {
+  //         // Fetch user information
+  //         axios.post('http://localhost:3000/users/user', { id })
+  //           .then((userResponse) => {
+  //             setUser(userResponse.data[0]);
+
+  //             // Fetch user cart data
+  //             axios.get(`http://localhost:3000/user_cart/${id}`)
+  //               .then((cartResponse) => {
+  //                 setUserCartItems(cartResponse.data);
+
+  //                 // Fetch item details for each item in userCartItems
+  //                 const itemPromises = cartResponse.data.map((item) =>
+  //                   axios.get(`http://localhost:3000/items/${item.item_id}`)
+  //                 );
+
+  //                 Promise.all(itemPromises)
+  //                   .then((itemResponses) => {
+  //                     const checkoutItemsData = [];
+  //                     itemResponses.forEach((response, index) => {
+  //                       const itemData = response.data;
+  //                       const cartItem = cartResponse.data[index];
+  //                       const existingCheckoutItemIndex = checkoutItemsData.findIndex(
+  //                         (checkoutItem) => checkoutItem.id === itemData.id
+  //                       );
+
+  //                       if (existingCheckoutItemIndex !== -1) {
+
+  //                         checkoutItemsData[existingCheckoutItemIndex].quantity += cartItem.quantity;
+  //                       } else {
+    
+  //                         checkoutItemsData.push({
+  //                           id: itemData.id,
+  //                           photo_path: itemData.photo_path,
+  //                           name: itemData.name,
+  //                           price: itemData.price,
+  //                           quantity: cartItem.quantity,
+  //                         });
+  //                       }
+  //                     });
+  //                     setCheckoutItems(checkoutItemsData);
                      
-                    })
-                    .catch((error) => {
-                      console.error('Error fetching item details:', error);
-                    });
-                })
-                .catch((error) => {
-                  console.error('Error fetching user cart data:', error);
-                });
-            })
-            .catch((error) => {
-              console.error('Error fetching user data:', error);
-            });
-        }
-      })
-      .catch((error) => {
-        console.error('Error fetching id:', error);
-        navigate('/Account');
-      });
-  }, [navigate]);
+  //                   })
+  //                   .catch((error) => {
+  //                     console.error('Error fetching item details:', error);
+  //                   });
+  //               })
+  //               .catch((error) => {
+  //                 console.error('Error fetching user cart data:', error);
+  //               });
+  //           })
+  //           .catch((error) => {
+  //             console.error('Error fetching user data:', error);
+  //           });
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error fetching id:', error);
+  //       navigate('/Account');
+  //     });
+  // }, [navigate]);
 
-  const handleRemoveItem = (itemId) => {
-    axios.get(`http://localhost:3000/user_cart/remove/${itemId}`)
-      .then((response) => {
-        setUserCartItems(prevUserCartItems => prevUserCartItems.filter(item => item.id !== itemId));
+  // const handleRemoveItem = (itemId) => {
+  //   axios.get(`http://localhost:3000/user_cart/remove/${itemId}`)
+  //     .then((response) => {
+  //       setUserCartItems(prevUserCartItems => prevUserCartItems.filter(item => item.id !== itemId));
   
        
-        setCheckoutItems(prevCheckoutItems =>
-          prevCheckoutItems.filter(item => item.id !== itemId)
-        );
+  //       setCheckoutItems(prevCheckoutItems =>
+  //         prevCheckoutItems.filter(item => item.id !== itemId)
+  //       );
   
        
-        const userCartLocalStorage = JSON.parse(localStorage.getItem('user_cart')) || [];
-        const updatedUserCart = userCartLocalStorage.filter(item => item.item_id !== itemId);
-        localStorage.setItem('user_cart', JSON.stringify(updatedUserCart));
-      })
-      .catch((error) => {
-        console.error('Error removing item from cart:', error);
-      });
-  };
+  //       const userCartLocalStorage = JSON.parse(localStorage.getItem('user_cart')) || [];
+  //       const updatedUserCart = userCartLocalStorage.filter(item => item.item_id !== itemId);
+  //       localStorage.setItem('user_cart', JSON.stringify(updatedUserCart));
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error removing item from cart:', error);
+  //     });
+  // };
 
-      useEffect(() => {
-      }, [checkoutItems]);
+  //     useEffect(() => {
+  //     }, [checkoutItems]);
 
 
 
