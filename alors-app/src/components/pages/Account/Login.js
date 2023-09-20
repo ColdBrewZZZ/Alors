@@ -42,11 +42,11 @@ function Login() {
           console.error('Error setting cookie:', cookieError);
         }
   
-        const userCart = JSON.parse(localStorage.getItem('user_cart'));
+        // const userCart = JSON.parse(localStorage.getItem('user_cart'));
   
-        if (userCart && Array.isArray(userCart)) {
-          addUserCartItemsToDb(userCart)
-        }
+        // if (userCart && Array.isArray(userCart)) {
+        //   addUserCartItemsToDb(userCart)
+        // }
   
         navigate('/Account/OrderHistory');
       } else {
@@ -57,32 +57,32 @@ function Login() {
     }
   };
   
-  const addUserCartItemsToDb = async (userCart) => {
-    for (const item of userCart) {
-      const { item_id, quantity } = item;
-      try {
-        const response = await axios.get('http://localhost:3000/users/get-cookie', { withCredentials: true });
-        const userId = response.data.userID;
+  // const addUserCartItemsToDb = async (userCart) => {
+  //   for (const item of userCart) {
+  //     const { item_id, quantity } = item;
+  //     try {
+  //       const response = await axios.get('http://localhost:3000/users/get-cookie', { withCredentials: true });
+  //       const userId = response.data.userID;
        
 
-        try {
-          const response = await fetchData('http://localhost:3000/user_cart', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ user_id: userId, item_id, quantity }),
-          });
+  //       try {
+  //         const response = await fetchData('http://localhost:3000/user_cart', {
+  //           method: 'POST',
+  //           headers: {
+  //             'Content-Type': 'application/json',
+  //           },
+  //           body: JSON.stringify({ user_id: userId, item_id, quantity }),
+  //         });
 
        
-        } catch (postError) {
-          console.error('Error adding item to user_cart:', postError);
-        }
-      } catch (error) {
-        console.error('Error fetching id:', error);
-      }
-    }
-  }
+  //       } catch (postError) {
+  //         console.error('Error adding item to user_cart:', postError);
+  //       }
+  //     } catch (error) {
+  //       console.error('Error fetching id:', error);
+  //     }
+  //   }
+  // }
  
 
 
