@@ -1,11 +1,12 @@
-import React, {useState, useEffect} from 'react';
-import image from '../../../img/exploreAp.JPG';
+import React, {useState, useEffect, useRef} from 'react';
 import { Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { Form, InputGroup} from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import axios from '../../../api/axios';
 import CheckoutItemCard from './ShoppingComponents/CheckoutItemCard';
+import useFetch from '../../../api/useFetch';
+
 
 const contactInformationInputFields = [
     { name: 'email', type: 'email', label: 'Email', required: true, redStar:true },
@@ -26,9 +27,12 @@ const shippingInformationInputFields = [
 
   function Checkout() {
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const { isLoading, error, data, fetchData } = useFetch();
     const [user, setUser] = useState();
     const [userCartItems, setUserCartItems] = useState([]);
     const [checkoutItems, setCheckoutItems] = useState([]);
+    const [addressId, setAddressId] = useState([]);
+   
 
     const navigate = useNavigate();
 
@@ -81,7 +85,7 @@ const shippingInformationInputFields = [
                         }
                       });
                       setCheckoutItems(checkoutItemsData);
-                      console.log('checkoutItems:', checkoutItemsData);
+                     
                     })
                     .catch((error) => {
                       console.error('Error fetching item details:', error);
@@ -107,12 +111,12 @@ const shippingInformationInputFields = [
       .then((response) => {
         setUserCartItems(prevUserCartItems => prevUserCartItems.filter(item => item.id !== itemId));
   
-        // Remove the item from checkoutItems
+       
         setCheckoutItems(prevCheckoutItems =>
           prevCheckoutItems.filter(item => item.id !== itemId)
         );
   
-        // Remove the item from user_cart in local storage
+       
         const userCartLocalStorage = JSON.parse(localStorage.getItem('user_cart')) || [];
         const updatedUserCart = userCartLocalStorage.filter(item => item.item_id !== itemId);
         localStorage.setItem('user_cart', JSON.stringify(updatedUserCart));
@@ -125,18 +129,67 @@ const shippingInformationInputFields = [
       useEffect(() => {
       }, [checkoutItems]);
 
+
+
+    // add shipping info to address db 
+
+    const addShippingInformationToAddressTable = (data) => {
+      //user_id, title, first_name, last_name, street_address, apt, city, state, zip_code
+
+      const response = fetchData('http://localhost:3000/insert_address', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({user_id: user.id, title: data.title, first_name: data.first_name, last_name: data.last_name, street_address: data.street_address, apt: data.apt, city: data.city, state: data.state, zip_code: data.zip_code}),
+      });
+       
+     
+        console.log('Inserted ID:', response.insertedId);
+     
+
+    };
+  
+
+
+    // add userCart to orders db
+
+    const addUserCartItemsToOrdersTable = (checkoutItems,user) => {
+      // user_id, date, order_status, phone, address_id
+
+      // const response = fetchData('http://localhost:3000/orders', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify({user_id: user.id, date: todays date, order_status: "pending", phone: data.phone, address_id: }),
+      // });
+       
+      console.log('checkoutItems', checkoutItems) // item_id, quantity, price
+      console.log('user', user.id) // user_id
+      // date, phone, order_status, and address_id
+    }
+
+    const onSubmit = (formData) => {
+      console.log('submit function activated');
+      console.log('Shipping Information FormData:', formData);
+      addShippingInformationToAddressTable(formData);
+      addUserCartItemsToOrdersTable(checkoutItems,user);
+    };
+
   return (
     <>
         <div>
             <h1 className="text-center">CHECKOUT</h1>
         </div>
-   
+    
+    <Form onSubmit={ handleSubmit(onSubmit)} >
     <div className="container">
         <div className="row">
             <div className="col-sm">
                 <h6>CONTACT INFORMATION</h6>
                     <div className=" text-center col-sm bg-white rounded pt-5 p-4 my-4 border border-black">
-                        <Form>
+                        
                             {contactInformationInputFields.map((field) => (
                                 <div className="mb-3" key={field.name}>
                                     <Form.Group>
@@ -153,7 +206,7 @@ const shippingInformationInputFields = [
                                 </div>
                             ))}
                             
-                        </Form>
+                      
                     </div>
 
                 {/* email, phone, */}
@@ -161,7 +214,7 @@ const shippingInformationInputFields = [
                 <h6>SHIPPING INFORMATION</h6>
                 {/* title, first name, last name, street address, apt/floor/suite, city, state, zip */}
                 <div className=" text-center col-sm bg-white rounded pt-5 p-4 my-4 border border-black">
-                        <Form>
+                    
                             {shippingInformationInputFields.map((field) => (
                                 <div className="mb-3" key={field.name}>
                                     <Form.Group>
@@ -178,7 +231,7 @@ const shippingInformationInputFields = [
                                 </div>
                             ))}
                             
-                        </Form>
+                        
                     </div>
                
             </div>
@@ -200,14 +253,15 @@ const shippingInformationInputFields = [
                         <h2>ORDER DETAILS</h2>
                         <p>{checkoutItems.reduce((total, item) => total + item.quantity, 0)} items</p>
                         <p>order total: ${checkoutItems.reduce((total, item) => total + item.price * item.quantity, 0)}</p>
-                        <Link to={`/Receipt`}>
-                            <Button>SUBMIT ORDER</Button>
-                        </Link>
+                        {/* <Link to={`/Receipt`}> */}
+                            <Button type="submit" >SUBMIT ORDER</Button>
+                        {/* </Link> */}
                 </div>
              
             </div>
         </div>
     </div>
+    </Form>
     <div className='m-2'>
         <Link to={`/Cart`}>
             <Button>Back to cart</Button>
