@@ -32,7 +32,7 @@ function Home() {
            
             
             <div className="explore-img">
-                <Link  to={`/Shopping`}>
+                <Link  to={`/Shopping/category1`}>
                     <img src={imageUrl1?.photoUrl} alt="apparel"/>
                     <div className="explore-txt">APPAREL</div>    
                 </Link>  
@@ -42,7 +42,7 @@ function Home() {
       
          
               <div className="explore-img">
-                <Link  to={`/Shopping`}>
+                <Link  to={`/Shopping/category2`}>
                   <img src={imageUrl2?.photoUrl} alt="shoes" />
                   
                 </Link>
@@ -51,7 +51,7 @@ function Home() {
          
           
               <div className="explore-img">
-                <Link  to={`/Shopping`}>
+                <Link  to={`/Shopping/category3`}>
                   <img src={imageUrl3?.photoUrl} alt="gifts" />
                   
                 </Link>
@@ -60,7 +60,7 @@ function Home() {
            
           
               <div className="explore-img">
-                <Link  to={`/Shopping`}>
+                <Link  to={`/Shopping/category4`}>
                   <img src={imageUrl4?.photoUrl} alt="chez moi" />
                 
                 </Link>
