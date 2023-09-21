@@ -36,6 +36,12 @@
     background-color: #27353F;
 }
 
+.shopping-navbar Button.active {
+    background-color: black;
+    color: white;
+  }
+  
+
 
 .itemCardLink {
     text-decoration: none;

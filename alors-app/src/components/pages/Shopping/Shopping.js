@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import './Shopping.css';
 import { Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useParams  } from 'react-router-dom';
 import banner from '../../../img/bannerAp.JPG';
 import ItemCard from './ShoppingComponents/ItemCard';
 
 
+
 function Shopping() {
   const [items, setItems] = useState([]);
-
+  const {category} = useParams();
+  const [lastPressedButton, setLastPressedButton] = useState(null);
+  
   
 
-  const url = "http://localhost:3000/items";
+
+  console.log(category)
 
   const fetchItems = async (url) => {
     try {
@@ -27,19 +31,58 @@ function Shopping() {
   };
 
   useEffect(() => {
-    fetchItems(url);
+    fetchItems(`http://localhost:3000/items/${category}`);
   
-  }, []);
-
-  return (
+  }, [category]);
+ 
+  return (  
     <>
     <nav className="shopping-navbar">
         <div className="shopping-nav-links">
-            <Button class="btn btn-dark">New</Button>
-            <Button class="btn btn-dark">Apparel</Button>
-            <Button class="btn btn-dark">Shoes</Button>
-            <Button class="btn btn-dark">Gifts</Button>
-            <Button class="btn btn-dark">Chez Moi</Button>
+          <Link to="http://localhost:3001/Shopping/All">
+            <Button className={`btn btn-dark ${lastPressedButton === 'SHOP ALL' ? 'active' : ''}`}
+              onClick={() => {
+                setLastPressedButton('SHOP ALL');
+              }}> All
+            </Button>
+          </Link>
+          <Link to="http://localhost:3001/Shopping/new-items">
+          <Button className={`btn btn-dark ${lastPressedButton === 'NEW' ? 'active' : ''}`}
+              onClick={() => {
+                setLastPressedButton('NEW');
+              }}> New
+            </Button>
+          </Link>
+          <Link to="http://localhost:3001/Shopping/category1">
+          <Button className={`btn btn-dark ${lastPressedButton === 'APPAREL' ? 'active' : ''}`}
+              onClick={() => {
+                setLastPressedButton('APPAREL');
+              }}> Apparel
+            </Button>
+          </Link>
+          <Link to="http://localhost:3001/Shopping/category2">
+          <Button className={`btn btn-dark ${lastPressedButton === 'SHOES' ? 'active' : ''}`}
+              onClick={() => {
+                setLastPressedButton('SHOES');
+              }}> Shoes
+            </Button>
+          </Link>
+          <Link to="http://localhost:3001/Shopping/category3">
+          <Button className={`btn btn-dark ${lastPressedButton === 'GIFTS' ? 'active' : ''}`}
+              onClick={() => {
+                setLastPressedButton('GIFTS');
+              }}> Gifts
+            </Button>
+          </Link>
+          <Link to="http://localhost:3001/Shopping/category4">
+          <Button className={`btn btn-dark ${lastPressedButton === 'CHEZ MOI' ? 'active' : ''}`}
+              onClick={() => {
+                setLastPressedButton('CHEZ MOI');
+              }}> Chez Moi
+            </Button>
+          </Link>
+           
+            
         </div>
       </nav>
      
@@ -50,11 +93,11 @@ function Shopping() {
         style={{ width: '100%'}}
       />
 
-            <h1>NEW</h1>
+            <h1>{lastPressedButton}</h1>
             
             
         </div>
-      <div className="dropdowns mt-2">
+      {/* <div className="dropdowns mt-2">
         <select defaultValue="filter">
           <option value="filter" disabled>Filter</option>
           <option value="color">Color</option>
@@ -65,7 +108,7 @@ function Shopping() {
           <option value="high-low">High-Low</option>
           <option value="low-high">Low-High</option>
         </select>
-      </div>
+      </div> */}
       <div class="container mt-2">
             <div class="row">
               {items.map((item) => (
@@ -96,3 +139,5 @@ function Shopping() {
 }
 
 export default Shopping;
+
+
