@@ -10,12 +10,8 @@ import ItemCard from './ShoppingComponents/ItemCard';
 function Shopping() {
   const [items, setItems] = useState([]);
   const {category} = useParams();
-  const [lastPressedButton, setLastPressedButton] = useState(null);
+  const [lastPressedButton, setLastPressedButton] = useState("SHOP");
   
-  
-
-
-  console.log(category)
 
   const fetchItems = async (url) => {
     try {

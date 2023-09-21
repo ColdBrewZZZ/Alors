@@ -35,18 +35,18 @@ function Login() {
       if (loginResponse.success) {
         setAuth(true);
   
-        try {
-          const cookieResponse = await setCookie();
+        // try {
+        //   const cookieResponse = await setCookie();
          
-        } catch (cookieError) {
-          console.error('Error setting cookie:', cookieError);
-        }
-  
-        // const userCart = JSON.parse(localStorage.getItem('user_cart'));
-  
-        // if (userCart && Array.isArray(userCart)) {
-        //   addUserCartItemsToDb(userCart)
+        // } catch (cookieError) {
+        //   console.error('Error setting cookie:', cookieError);
         // }
+  
+        // // const userCart = JSON.parse(localStorage.getItem('user_cart'));
+  
+        // // if (userCart && Array.isArray(userCart)) {
+        // //   addUserCartItemsToDb(userCart)
+        // // }
   
         navigate('/Account/OrderHistory');
       } else {
