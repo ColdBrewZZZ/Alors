@@ -177,47 +177,55 @@ const shippingInformationInputFields = [
     // add shipping info to address db 
 
     const addShippingInformationToAddressTable = (data) => {
-      //user_id, title, first_name, last_name, street_address, apt, city, state, zip_code
+     
 
-      const response = fetchData('http://localhost:3000/insert_address', {
-        method: 'POST',
+      axios.post('http://localhost:3000/checkout', {
+        title: data.title,
+        first_name: data.first_name,
+        last_name: data.last_name,
+        street_address: data.street_address,
+        apt: data.apt,
+        city: data.city,
+        state: data.state,
+        zip_code: data.zip_code,
+        order_status: "pending",
+        phone: data.phone,
+        items: checkoutItems
+        
+      }, {
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify({user_id: user.id, title: data.title, first_name: data.first_name, last_name: data.last_name, street_address: data.street_address, apt: data.apt, city: data.city, state: data.state, zip_code: data.zip_code}),
+        withCredentials: true
       });
-       
-     
-        console.log('Inserted ID:', response.insertedId);
-     
 
+
+      
     };
   
 
 
     // add userCart to orders db
 
-    const addUserCartItemsToOrdersTable = (checkoutItems,user) => {
-      // user_id, date, order_status, phone, address_id
+    // const addUserCartItemsToOrdersTable = (checkoutItems) => {
+    //   // user_id, date, order_status, phone, address_id
 
-      // const response = fetchData('http://localhost:3000/orders', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: JSON.stringify({user_id: user.id, date: todays date, order_status: "pending", phone: data.phone, address_id: }),
-      // });
+    //   // const response = fetchData('http://localhost:3000/orders', {
+    //   //   method: 'POST',
+    //   //   headers: {
+    //   //     'Content-Type': 'application/json',
+    //   //   },
+    //   //   body: JSON.stringify({user_id: user.id, date: todays date, order_status: "pending", phone: data.phone, address_id: }),
+    //   // });
        
-      console.log('checkoutItems', checkoutItems) // item_id, quantity, price
-      console.log('user', user.id) // user_id
-      // date, phone, order_status, and address_id
-    }
+    //   console.log('checkoutItems', checkoutItems) // item_id, quantity, price
+    //   console.log('user') // user_id
+    //   // date, phone, order_status, and address_id
+    // }
 
     const onSubmit = (formData) => {
-      console.log('submit function activated');
-      console.log('Shipping Information FormData:', formData);
-      addShippingInformationToAddressTable(formData);
-      addUserCartItemsToOrdersTable(checkoutItems,user);
+      addShippingInformationToAddressTable(formData); // this function adds shipping address, order, and order details to db
+      //addUserCartItemsToOrdersTable(checkoutItems,user);
     };
 
   return (
@@ -296,9 +304,9 @@ const shippingInformationInputFields = [
                         <h2>ORDER DETAILS</h2>
                         <p>{checkoutItems.reduce((total, item) => total + item.quantity, 0)} items</p>
                         <p>order total: ${checkoutItems.reduce((total, item) => total + item.price * item.quantity, 0)}</p>
-                        {/* <Link to={`/Receipt`}> */}
+                        <Link to={`/Receipt`}>
                             <Button type="submit" >SUBMIT ORDER</Button>
-                        {/* </Link> */}
+                        </Link>
                 </div>
              
             </div>
